@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
         integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
+    <link rel="icon" href="images/logo.png">
+
     <title>Home - Foodbot</title>
 
     <style>
@@ -54,6 +56,29 @@
         {
             color: #00adb5;
         }
+        #footer {
+          position:absolute;
+          bottom:0;
+          width:100%;
+          padding-top: 1%;
+        }
+        #footer-text {
+          color: white;
+          font-weight: bold;
+          text-decoration: none;
+          margin-bottom: 100px;
+        }
+        #footer-text:hover {
+          color: #20aa9e;
+        }
+        .footer-menu-text {
+          color: rgb(192, 192, 192);
+          margin-top: 150%;
+          margin-right: 2%;
+        }
+        .footer-menu-text:hover{
+          color: rgb(243, 243, 243);
+        }
     </style>
 </head>
 <body>
@@ -75,6 +100,56 @@
           </div>
         </div>
     </nav>
-    <div id="home-bg-image" data-parallax="scroll" data-bleed="0" data-idele="parallax_home_opacity" data-opacity="0.5" data-filter="" data-backgroundcolor="#000000" data-image-src="url('/images/home_background_image.jpg')" data-position="center center" data-background-position="center center" style="background-position:center center"></div>
+
+    <footer id="footer" class="bg-dark text-center text-white">
+      <div class="row justify-content-center">
+        <div class="col-md-12 text-center">
+          <h2 class="footer-heading"><a href="/" id="footer-text">FOODBOT</a></h2>
+          <p class="menu">
+            <a class="footer-menu-text" href="#">Home</a>
+            <a class="footer-menu-text" href="#">Agent</a>
+            <a class="footer-menu-text" href="#">About</a>
+            <a class="footer-menu-text" href="#">Listing</a>
+            <a class="footer-menu-text" href="#">Blog</a>
+            <a class="footer-menu-text" href="#">Contact</a>
+          </p>
+        </div>
+      </div>
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+          <!-- Section: Social media -->
+          <section class="mb-4">
+            <!-- Facebook -->
+            <a class="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/profile.php?id=100082632134076" target="_blank" role="button"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+      
+            <!-- Google -->
+            <a class="btn btn-outline-light btn-floating m-1" href="https://www.youtube.com/channel/UChRA0VXT6Q7YRm-WiQF_wdQ" target="_blank" role="button"
+              ><i class="fab fa-youtube"></i
+            ></a>
+      
+            <!-- Instagram -->
+            <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/foodbotam/" target="_blank" role="button"
+              ><i class="fab fa-instagram"></i
+            ></a>
+      
+            <!-- Github -->
+            <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/foodbotam" role="button" target="_blank"
+              ><i class="fab fa-github"></i
+            ></a>
+          </section>
+          <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+      
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+          © 2020 Copyright:
+          <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        </div>
+        <!-- Copyright -->
+      </footer>
+
 </body>
 </html>

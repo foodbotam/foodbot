@@ -1,6 +1,14 @@
 
 {
 	"password" : "d6ca3fd0c3a3b462ff2b83436dda495e",
-	"type" : "sandwich"
+	"type" : "sandwich",
+	"container_1" : "bread",
+	"container_2" : "tomato",
+	"container_3" : "cucumber",
+	"container_4" : "sosage",
+	"container_5" : "ketchup",
+	"container_6" : "mayonnaise",
+	"container_7" : "salt",
+	"container_8" : "pepper"
 }
 	

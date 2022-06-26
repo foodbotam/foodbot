@@ -33,7 +33,15 @@ function make_json_file(name, password) {
 	let jsonData = `
 {
 	"password" : "${md5(password)}",
-	"type" : "sandwich"
+	"type" : "sandwich",
+	"container_1" : "bread",
+	"container_2" : "tomato",
+	"container_3" : "cucumber",
+	"container_4" : "sosage",
+	"container_5" : "ketchup",
+	"container_6" : "mayonnaise",
+	"container_7" : "salt",
+	"container_8" : "pepper"
 }
 	`;
 	let jsonObj = JSON.parse(jsonData);
