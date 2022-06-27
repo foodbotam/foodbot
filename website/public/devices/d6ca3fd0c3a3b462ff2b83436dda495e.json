@@ -5,7 +5,7 @@
 	"container_1" : {"name" : {"en" : "bread", "am" : "հաց"} , "image_path" : "images/sandwich/bread.png"},
 	"container_2" : {"name" : {"en" : "tomato", "am" : "լոլիկ"}, "image_path" : "images/sandwich/tomato.png"},
 	"container_3" : {"name" : {"en" : "cucumber", "am" : "վարունգ"}, "image_path" : "images/sandwich/cucumber.png"},
-	"container_4" : {"name" : {"en" : "sausage", "am" : "երշիկ"}, "image_path" : "images/sandwich/sausage.png"},
+	"container_4" : {"name" : {"en" : "sausage", "am" : "երշիկ"}, "image_path" : "images/sandwich/another.png"},
 	"container_5" : "ketchup",
 	"container_6" : "mayonnaise",
 	"container_7" : "salt",

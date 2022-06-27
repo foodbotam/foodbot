@@ -4,11 +4,44 @@ const { log } = require("util");
 const express = require('express');
 const session = require("express-session");
 
-const fs = require('fs')
+const fs = require('fs');
+const { connect } = require("http2");
 const app = express();
-const port = 3000;
+const port = 3001;
 
 var language = "en";
+var translated = {
+	"am" : {
+		"home" : "գլխավոր",
+		"about_project" : "նախագծի մասին",
+		"products" : "պրոդուկտներ",
+		"device_control" : "սարքավորման կառավորում",
+		"logout" : "ելք",
+		"login" : "մուտք",
+		"connect" : "միանալ",
+		"device_id" : "սարքավորման այդի",
+		"password" : "գաղտնաբառ",
+		"login_error" : "Սարքավորման այդին կամ գաղտնաբառը սխալ է",
+		"aboutus" : "մեր մասին",
+		"contactus" : "կապնվել մեզ հետ",
+		"help" : "օգնություն"
+	},
+	"en" : {
+		"home" : "home",
+		"about_project" : "about project",
+		"products" : "products",
+		"device_control" : "device control",
+		"logout" : "logout",
+		"login" : "login",
+		"connect" : "connect",
+		"device_id" : "device id",
+		"password" : "password",
+		"login_error" : "Device id or password is wrong",
+		"aboutus" : "about us",
+		"contactus" : "contact us",
+		"help" : "help"
+	}
+}
 
 // Defining server proparties
 app.set("view engine", "ejs");
@@ -75,7 +108,7 @@ app.get("/", (req, res) => {
 
 // Function for rendering login page
 app.get("/login", (req, res) => {
-	res.render("login.ejs", { uorp: true })
+	res.render("login.ejs", { uorp: true, translated: translated, language: language })
 });
 
 // Function which will work when user login
@@ -95,7 +128,7 @@ app.post("/login", (req, res) => {
 			}
 			else
 			{
-				res.render("login.ejs", { uorp: false })
+				res.render("login.ejs", { uorp: false , translated: translated, language: language})
 			}
 		}
 		else {
@@ -107,18 +140,18 @@ app.post("/login", (req, res) => {
 
 // Function for aboutus page
 app.get("/aboutus", (req, res) => {
-	res.render("aboutus.ejs", { uorp: req.session.loggedin, language: language })
+	res.render("aboutus.ejs", { uorp: req.session.loggedin, language: language, translated: translated })
 });
 
 // Function for home page
 app.get("/home", (req, res) => {
-	res.render("home.ejs", { uorp: req.session.loggedin, language: language })
+	res.render("home.ejs", { uorp: req.session.loggedin, language: language, translated: translated })
 });
 
 // Function for device control page
 app.get("/devicecontrol", (req, res) => {
 	if (req.session.loggedin){
-		res.render("devicecontrol.ejs", { uorp: req.session.loggedin, data: read_device_info(req.session.deviceid), language: language})
+		res.render("devicecontrol.ejs", { uorp: req.session.loggedin, data: read_device_info(req.session.deviceid), language: language, translated: translated})
 	}
 	else{
 		res.redirect("/login")
@@ -135,7 +168,21 @@ app.get("/logout", (req, res) => {
 
 // Function for showing products mady by foodbot 
 app.get("/products", (req, res) => {
-	res.render("products.ejs", { uorp: req.session.loggedin, language: language })
+	res.render("products.ejs", { uorp: req.session.loggedin, language: language, translated: translated })
+});
+
+// If you post on this url you will change language
+app.post("/changelanguage/:selected_language", (req, res) => {
+	language = req.params.selected_language
+	if (language=="armenian")
+	{
+		language = "am"
+	}
+	else if (language=="english")
+	{
+		language = "en"
+	}
+	console.log(language);
 });
 
 // Running server

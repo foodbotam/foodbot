@@ -3,6 +3,32 @@
     #navbar-home-text {
       color: #00adb5;
     }
+    #bg_image
+    {
+      width: 100%;
+      transition: all linear .5s;
+      height: 100%;
+      object-fit: none;
+    }
+    .image-container {
+      position: relative;
+      text-align: center;
+      color: white;
+    }
+    .image-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-weight: bold;
+      font-size: 5vw;
+    }
+    
   </style>
   <title>Home - Foodbot</title>
+  <div class="image-container"></div>
+    <img id="bg_image" src="images/home_background_image.jpg" alt="">
+    <div class="image-text">FOOD BOT</div>
+  </div>
 <%- include('footer.ejs') %>

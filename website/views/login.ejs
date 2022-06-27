@@ -93,6 +93,12 @@
             font-size: 30px;
             font-weight: bold;
             letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+        #login-button
+        {
+            text-transform: uppercase;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -102,7 +108,7 @@
         <div class="d-flex justify-content-center h-100">
             <div class="card">
                 <div class="card-header">
-                    <h3 id="connect-text">ՄԻԱՆԱԼ</h3>
+                    <h3 id="connect-text"><%= translated[language]['connect'] %></h3>
                 </div>
                 <div class="card-body">
                     <form action="/login" method="POST">
@@ -110,22 +116,22 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input type="text" class="form-control" placeholder="սարքավորման այդի" name="deviceid" required autofocus>
+                            <input type="text" class="form-control" placeholder="<%= translated[language]['device_id'] %>" name="deviceid" required autofocus>
 
                         </div>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                            <input type="password" class="form-control" placeholder="գաղտնաբառ" name="password" required>
+                            <input type="password" class="form-control" placeholder="<%= translated[language]['password'] %>" name="password" required>
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="ՄԻԱՆԱԼ" class="btn login_btn">
+                            <input type="submit" id="login-button" value="<%= translated[language]['connect'] %>" class="btn login_btn">
                         </div>
                         
                     </form>
                         <% if(uorp===false){ %>
-                        <div class="d-flex justify-content-center links" style="color: red; text-align: center;">Սարքավորման այդին կամ գաղտնաբառը սխալ է.</div>
+                        <div class="d-flex justify-content-center links" style="color: red; text-align: center;"><%= translated[language]['login_error'] %></div>
                         <% } %>
                         
                 </div>
