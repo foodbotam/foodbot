@@ -34,10 +34,10 @@ function make_json_file(name, password) {
 {
 	"password" : "${md5(password)}",
 	"type" : "sandwich",
-	"container_1" : "bread",
-	"container_2" : "tomato",
-	"container_3" : "cucumber",
-	"container_4" : "sosage",
+	"container_1" : {"name" : "bread", "image_path" : "images/sandwich/bread.png"},
+	"container_2" : {"name" : "tomato", "image_path" : "images/sandwich/tomato.png"},
+	"container_3" : {"name" : "cucumber", "image_path" : "images/sandwich/cucumber.png"},
+	"container_4" : {"name" : "sausage", "image_path" : "images/sandwich/sausage.png"},
 	"container_5" : "ketchup",
 	"container_6" : "mayonnaise",
 	"container_7" : "salt",
@@ -47,6 +47,13 @@ function make_json_file(name, password) {
 	let jsonObj = JSON.parse(jsonData);
 	let jsonContent = JSON.stringify(jsonObj);
 	fs.writeFile(json_file_path, jsonData, "utf8", function (err) { });
+}
+
+// Function for reading json file 
+function read_device_info(name){
+	let json_file_path = `public/devices/${md5(name)}.json`
+	let json_data =  JSON.parse(fs.readFileSync(json_file_path));
+	return json_data
 }
 
 // Function which will check if password is true	
@@ -108,7 +115,7 @@ app.get("/home", (req, res) => {
 
 // Function for device control page
 app.get("/devicecontrol", (req, res) => {
-	res.render("home.ejs", { uorp: req.session.loggedin })
+	res.render("devicecontrol.ejs", { uorp: req.session.loggedin, data: read_device_info(req.session.deviceid)})
 });
 
 // Function for runing logout 
