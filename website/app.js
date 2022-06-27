@@ -8,6 +8,8 @@ const fs = require('fs')
 const app = express();
 const port = 3000;
 
+var language = "en";
+
 // Defining server proparties
 app.set("view engine", "ejs");
 app.use(express.urlencoded());
@@ -34,10 +36,10 @@ function make_json_file(name, password) {
 {
 	"password" : "${md5(password)}",
 	"type" : "sandwich",
-	"container_1" : {"name" : "bread", "image_path" : "images/sandwich/bread.png"},
-	"container_2" : {"name" : "tomato", "image_path" : "images/sandwich/tomato.png"},
-	"container_3" : {"name" : "cucumber", "image_path" : "images/sandwich/cucumber.png"},
-	"container_4" : {"name" : "sausage", "image_path" : "images/sandwich/sausage.png"},
+	"container_1" : {"name" : {"en" : "bread", "am" : "հաց"} , "image_path" : "images/sandwich/bread.png"},
+	"container_2" : {"name" : {"en" : "tomato", "am" : "լոլիկ"}, "image_path" : "images/sandwich/tomato.png"},
+	"container_3" : {"name" : {"en" : "cucumber", "am" : "վարունգ"}, "image_path" : "images/sandwich/cucumber.png"},
+	"container_4" : {"name" : {"en" : "sausage", "am" : "երշիկ"}, "image_path" : "images/sandwich/sausage.png"},
 	"container_5" : "ketchup",
 	"container_6" : "mayonnaise",
 	"container_7" : "salt",
@@ -105,17 +107,22 @@ app.post("/login", (req, res) => {
 
 // Function for aboutus page
 app.get("/aboutus", (req, res) => {
-	res.render("aboutus.ejs", { uorp: req.session.loggedin })
+	res.render("aboutus.ejs", { uorp: req.session.loggedin, language: language })
 });
 
 // Function for home page
 app.get("/home", (req, res) => {
-	res.render("home.ejs", { uorp: req.session.loggedin })
+	res.render("home.ejs", { uorp: req.session.loggedin, language: language })
 });
 
 // Function for device control page
 app.get("/devicecontrol", (req, res) => {
-	res.render("devicecontrol.ejs", { uorp: req.session.loggedin, data: read_device_info(req.session.deviceid)})
+	if (req.session.loggedin){
+		res.render("devicecontrol.ejs", { uorp: req.session.loggedin, data: read_device_info(req.session.deviceid), language: language})
+	}
+	else{
+		res.redirect("/login")
+	}
 });
 
 // Function for runing logout 
@@ -128,7 +135,7 @@ app.get("/logout", (req, res) => {
 
 // Function for showing products mady by foodbot 
 app.get("/products", (req, res) => {
-	res.render("products.ejs", { uorp: req.session.loggedin }	)
+	res.render("products.ejs", { uorp: req.session.loggedin, language: language })
 });
 
 // Running server
