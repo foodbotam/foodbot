@@ -101,20 +101,20 @@
       <h2 class="container-number">Տարրա 2</h2>
     <% } %>
     <img src="<%= data["container_2"]["image_path"] %>" class="container-food-photo" alt="">
-    <select class="container-selector" id="container-2" name="container-2" onchange="add_input(this.id);">
+    <select class="container-selector" id="container-2" name="container-2" onchange="add_input(value);">
       <% if(language=="en"){ %>
-        <option value="bread" selected disabled>Choose other food</option>
-        <option value="bread">Tomato</option>
-        <option value="bread">Cucumber</option>
-        <option value="bread">Sausage</option>
-        <option value="bread">Other</option>
+        <option value="select" selected disabled>Choose other food</option>
+        <option value="tomato">Tomato</option>
+        <option value="cucumber">Cucumber</option>
+        <option value="sausage">Sausage</option>
+        <option value="other">Other</option>
       <% } %>
       <% if(language=="am"){ %>
-        <option value="bread" selected disabled>Ընտրել այլ ուտելիք</option>
-        <option value="bread">Լոլիկ</option>
-        <option value="bread">Վարունգ</option>
-        <option value="bread">Երշիկ</option>
-        <option value="bread">Այլ</option>
+        <option value="select" selected disabled>Ընտրել այլ ուտելիք</option>
+        <option value="tomato">Լոլիկ</option>
+        <option value="cucumber">Վարունգ</option>
+        <option value="sausage">Երշիկ</option>
+        <option value="other">Այլ</option>
       <% } %>
     </select>
 </div>
@@ -179,18 +179,32 @@
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
   }
   
-  function add_input(id) {
-    if ()
-    var div = document.getElementById("container-2");
-    element = document.createElement("button");
-    element.innerHTML = `<button type="submit" value="Submit">Update</button>`;
-    element.style.cssText = "background-color: #0563af; width: 80%; margin-left: 10%; margin-top: 5%"
-    insertAfter(div, element);
-    element = document.createElement("input");
-    element.innerHTML = `<input type="text" style="" id="other-name-input" name="other-name-input" placeholder="New name...">`;
-    element.style.cssText = "margin-left: 10%; width : 80%; margin-top: 5%; placeholder: 'New name'; background-color: #0563af;padding-left: 10px; color: white; border: 0px;"
-    insertAfter(div, element);
-    
+  let container_2_selected = false
+  function add_input(value) {
+    console.log(container_2_selected);
+    if (value=="other" && !container_2_selected){
+      container_2_selected = true
+      let div = document.getElementById("container-2");
+      let element = document.createElement("button");
+      element.innerHTML = `<button type="submit" value="Submit">Update</button>`;
+      element.style.cssText = "background-color: #0563af; width: 80%; margin-left: 10%; margin-top: 5%"
+      element.id = "other-name-input"
+      insertAfter(div, element);
+      element = document.createElement("input");
+      element.innerHTML = `<input type="text" style="" id="other-name-input" name="other-name-input" placeholder="New name...">`;
+      element.style.cssText = "margin-left: 10%; width : 80%; margin-top: 5%; placeholder: 'New name'; background-color: #0563af;padding-left: 10px; color: white; border: 0px;"
+      element.id = "other-name-button"
+      insertAfter(div, element);
+    }
+    else{
+      if (container_2_selected){
+        container_2_selected = false
+        var elem2 = document.getElementById("other-name-button");
+        elem2.remove();
+        var elem = document.getElementById("other-name-input");
+        elem.remove();
+      }
+    }
   }
 </script>
 
