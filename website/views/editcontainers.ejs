@@ -88,21 +88,19 @@
     </style>
 
 
-<button type="button" class="btn btn-primary btn-lg btn-block" onclick="window.location.replace('/devicecontrol')" id="back-button"><%= translated[language]["back"] %></button>
-  <div class="food-containers" id="container_1">
-    <h1 class="container-inside-text"><%= data["container_1"]["name"][language] %></h1>
-    <% if(language=="en"){ %>
-      <h2 class="container-number">Container 1</h2>
-    <% } %>
-    <% if(language=="am"){ %>
-      <h2 class="container-number">Տարրա 1</h2>
-    <% } %>
+<!-- Container 1 part  -->
+<div class="food-containers" id="container_1">
+    <h1 class="container-inside-text"> <% if (data["container_1"]["type"]=="other") { %> <%= data["container_1"]["name"] %> <% } else {  %> <%= translated[language][data["container_1"]["name"]] %> <% } %></h1>
+    <h2 class="container-number"><%= translated[language]["container"] %> 1</h2>
     <img src="<%= data["container_1"]["image_path"] %>" class="container-food-photo" alt="">
     <select class="container-selector" id="container-1" name="container-1" onchange="add_input(value);" disabled>
-        <option value="select" class="dropdown-items" selected disabled><%= translated[language]['choose_another_food'] %></option>
+        <option value="no name" class="dropdown-items" selected disabled><%= translated[language]['choose_another_food'] %></option>
         <option value="tomato" class="dropdown-items"><%= translated[language]['tomato'] %></option>
         <option value="cucumber" class="dropdown-items"><%= translated[language]['cucumber'] %></option>
         <option value="sausage" class="dropdown-items"><%= translated[language]['sausage'] %></option>
+        <option value="cheese" class="dropdown-items"><%= translated[language]['cheese'] %></option>
+        <option value="onion" class="dropdown-items"><%= translated[language]['onion'] %></option>
+        <option value="green_pepper" class="dropdown-items"><%= translated[language]['green_pepper'] %></option>
         <option value="another" class="dropdown-items"><%= translated[language]['another'] %></option>
     </select>
 </div>
@@ -114,13 +112,13 @@
 
 
 
-    <!-- COntainer 2 part  -->
+    <!-- Container 2 part  -->
     <div class="food-containers" id="container_2">
-        <h1 class="container-inside-text"><%= data["container_2"]["name"][language] %></h1>
+        <h1 class="container-inside-text"> <% if (data["container_2"]["type"]=="other") { %> <%= data["container_2"]["name"] %> <% } else {  %> <%= translated[language][data["container_2"]["name"]] %> <% } %></h1>
         <h2 class="container-number"><%= translated[language]["container"] %> 2</h2>
         <img src="<%= data["container_2"]["image_path"] %>" class="container-food-photo" alt="">
-        <select class="container-selector" id="container-2" name="container-2" onchange="add_input(value);">
-            <option value="select" class="dropdown-items" selected disabled><%= translated[language]['choose_another_food'] %></option>
+        <select class="container-selector" id="container-2" name="container-2" onchange="add_input_2(value);">
+            <option value="no name" class="dropdown-items" selected disabled><%= translated[language]['choose_another_food'] %></option>
             <option value="tomato" class="dropdown-items"><%= translated[language]['tomato'] %></option>
             <option value="cucumber" class="dropdown-items"><%= translated[language]['cucumber'] %></option>
             <option value="sausage" class="dropdown-items"><%= translated[language]['sausage'] %></option>
@@ -137,75 +135,81 @@
 
 
 
-<div class="food-containers" id="container_3">
-  <h1 class="container-inside-text"><%= data["container_3"]["name"][language] %></h1>
-  <% if(language=="en"){ %>
-    <h2 class="container-number">Container 3</h2>
-  <% } %>
-  <% if(language=="am"){ %>
-    <h2 class="container-number">Տարրա 3</h2>
-  <% } %>
-  <img src="<%= data["container_3"]["image_path"] %>" class="container-food-photo" alt="">
-  <select class="container-selector" id="container-3" name="container-3" onchange="add_input(value);">
-      <option value="select" class="dropdown-items" selected disabled><%= translated[language]['choose_another_food'] %></option>
-      <option value="tomato" class="dropdown-items"><%= translated[language]['tomato'] %></option>
-      <option value="cucumber" class="dropdown-items"><%= translated[language]['cucumber'] %></option>
-      <option value="sausage" class="dropdown-items"><%= translated[language]['sausage'] %></option>
-      <option value="another" class="dropdown-items"><%= translated[language]['another'] %></option>
-  </select>
-</div>
+    <!-- Container 3 part  -->
+    <div class="food-containers" id="container_3">
+    <h1 class="container-inside-text"> <% if (data["container_3"]["type"]=="other") { %> <%= data["container_3"]["name"] %> <% } else {  %> <%= translated[language][data["container_3"]["name"]] %> <% } %></h1>
+        <h2 class="container-number"><%= translated[language]["container"] %> 3</h2>
+        <img src="<%= data["container_3"]["image_path"] %>" class="container-food-photo" alt="">
+        <select class="container-selector" id="container-3" name="container-3" onchange="add_input_3(value);">
+            <option value="no name" class="dropdown-items" selected disabled><%= translated[language]['choose_another_food'] %></option>
+            <option value="tomato" class="dropdown-items"><%= translated[language]['tomato'] %></option>
+            <option value="cucumber" class="dropdown-items"><%= translated[language]['cucumber'] %></option>
+            <option value="sausage" class="dropdown-items"><%= translated[language]['sausage'] %></option>
+            <option value="cheese" class="dropdown-items"><%= translated[language]['cheese'] %></option>
+            <option value="onion" class="dropdown-items"><%= translated[language]['onion'] %></option>
+            <option value="green_pepper" class="dropdown-items"><%= translated[language]['green_pepper'] %></option>
+            <option value="another" class="dropdown-items"><%= translated[language]['another'] %></option>
+        </select>
+    </div>
 
-<div class="food-containers" id="container_4">
-  <h1 class="container-inside-text"><%= data["container_4"]["name"][language] %></h1>
-  <% if(language=="en"){ %>
-    <h2 class="container-number">Container 4</h2>
-  <% } %>
-  <% if(language=="am"){ %>
-    <h2 class="container-number">Տարրա 4</h2>
-  <% } %>
-  <img src="<%= data["container_4"]["image_path"] %>" class="container-food-photo" alt="">
-  <select class="container-selector" id="container-4" name="container-4" onchange="add_input(value);">
-      <option value="select" class="dropdown-items" selected disabled><%= translated[language]['choose_another_food'] %></option>
-      <option value="tomato" class="dropdown-items"><%= translated[language]['tomato'] %></option>
-      <option value="cucumber" class="dropdown-items"><%= translated[language]['cucumber'] %></option>
-      <option value="sausage" class="dropdown-items"><%= translated[language]['sausage'] %></option>
-      <option value="another" class="dropdown-items"><%= translated[language]['another'] %></option>
-  </select>
-</div>
 
-<div class="food-containers" id="container_5">
-  <h1 class="container-inside-text"><%= data["container_5"]["name"][language] %></h1>
-  <% if(language=="en"){ %>
-    <h2 class="container-number">Container 5</h2>
-  <% } %>
-  <% if(language=="am"){ %>
-    <h2 class="container-number">Տարրա 5</h2>
-  <% } %>
-  <img src="<%= data["container_5"]["image_path"] %>" class="container-food-photo" alt="">
-  <select class="container-selector" id="container-5" name="container-5" onchange="add_input(value);">
-      <option value="select" class="dropdown-items" selected disabled><%= translated[language]['choose_another_food'] %></option>
-      <option value="tomato" class="dropdown-items"><%= translated[language]['tomato'] %></option>
-      <option value="cucumber" class="dropdown-items"><%= translated[language]['cucumber'] %></option>
-      <option value="sausage" class="dropdown-items"><%= translated[language]['sausage'] %></option>
-      <option value="another" class="dropdown-items"><%= translated[language]['another'] %></option>
-  </select>
-</div>
-<div class="food-containers" id="container_6">
-  <h1 class="container-inside-text"><%= data["container_6"]["name"][language] %></h1>
-  <% if(language=="en"){ %>
-    <h2 class="container-number">Container 6</h2>
-  <% } %>
-  <% if(language=="am"){ %>
-    <h2 class="container-number">Տարրա 6</h2>
-  <% } %>
-  <img src="<%= data["container_6"]["image_path"] %>" class="container-food-photo" alt="">
-  <select class="container-selector" id="container-6" name="container-6" onchange="add_input(value);">
-      <option value="select" class="dropdown-items" selected disabled><%= translated[language]['choose_another_food'] %></option>
-      <option value="tomato" class="dropdown-items"><%= translated[language]['tomato'] %></option>
-      <option value="cucumber" class="dropdown-items"><%= translated[language]['cucumber'] %></option>
-      <option value="sausage" class="dropdown-items"><%= translated[language]['sausage'] %></option>
-      <option value="another" class="dropdown-items"><%= translated[language]['another'] %></option>
-  </select>
+
+
+
+    <!-- Container 4 part  -->
+    <div class="food-containers" id="container_4">
+        <h1 class="container-inside-text"> <% if (data["container_4"]["type"]=="other") { %> <%= data["container_4"]["name"] %> <% } else {  %> <%= translated[language][data["container_4"]["name"]] %> <% } %></h1>
+            <h2 class="container-number"><%= translated[language]["container"] %> 4</h2>
+            <img src="<%= data["container_4"]["image_path"] %>" class="container-food-photo" alt="">
+            <select class="container-selector" id="container-4" name="container-4" onchange="add_input_4(value);">
+                <option value="no name" class="dropdown-items" selected disabled><%= translated[language]['choose_another_food'] %></option>
+                <option value="tomato" class="dropdown-items"><%= translated[language]['tomato'] %></option>
+                <option value="cucumber" class="dropdown-items"><%= translated[language]['cucumber'] %></option>
+                <option value="sausage" class="dropdown-items"><%= translated[language]['sausage'] %></option>
+                <option value="cheese" class="dropdown-items"><%= translated[language]['cheese'] %></option>
+                <option value="onion" class="dropdown-items"><%= translated[language]['onion'] %></option>
+                <option value="green_pepper" class="dropdown-items"><%= translated[language]['green_pepper'] %></option>
+                <option value="another" class="dropdown-items"><%= translated[language]['another'] %></option>
+            </select>
+        </div>
+
+
+
+
+
+
+        
+        <!-- Container 5 part  -->
+    <div class="food-containers" id="container_5">
+        <h1 class="container-inside-text"> <% if (data["container_5"]["type"]=="other") { %> <%= data["container_5"]["name"] %> <% } else {  %> <%= translated[language][data["container_5"]["name"]] %> <% } %></h1>
+            <h2 class="container-number"><%= translated[language]["container"] %> 5</h2>
+            <img src="<%= data["container_5"]["image_path"] %>" class="container-food-photo" alt="">
+            <select class="container-selector" id="container-5" name="container-5" onchange="add_input_5(value);">
+                <option value="no name" class="dropdown-items" selected disabled><%= translated[language]['choose_another_food'] %></option>
+                <option value="ketchup" class="dropdown-items"><%= translated[language]['ketchup'] %></option>
+                <option value="mayonnaise" class="dropdown-items"><%= translated[language]['mayonnaise'] %></option>
+                <option value="mustard" class="dropdown-items"><%= translated[language]['mustard'] %></option>
+                <option value="another" class="dropdown-items"><%= translated[language]['another'] %></option>
+            </select>
+        </div>
+
+
+
+
+
+        <!-- Container 6 part  -->
+    <div class="food-containers" id="container_6">
+        <h1 class="container-inside-text"> <% if (data["container_6"]["type"]=="other") { %> <%= data["container_6"]["name"] %> <% } else {  %> <%= translated[language][data["container_6"]["name"]] %> <% } %></h1>
+            <h2 class="container-number"><%= translated[language]["container"] %> 6</h2>
+            <img src="<%= data["container_6"]["image_path"] %>" class="container-food-photo" alt="">
+            <select class="container-selector" id="container-6" name="container-6" onchange="add_input_6(value);">
+                <option value="no name" class="dropdown-items" selected disabled><%= translated[language]['choose_another_food'] %></option>
+                <option value="ketchup" class="dropdown-items"><%= translated[language]['ketchup'] %></option>
+                <option value="mayonnaise" class="dropdown-items"><%= translated[language]['mayonnaise'] %></option>
+                <option value="mustard" class="dropdown-items"><%= translated[language]['mustard'] %></option>
+                <option value="another" class="dropdown-items"><%= translated[language]['another'] %></option>
+            </select>
+        </div>
 </div>
 
 <script>
@@ -233,7 +237,7 @@
   
   let container_2_selected = false
   let container_2_button_exist = false
-  function add_input(value) {
+  function add_input_2(value) {
     let div = document.getElementById("container-2");
     if (!container_2_button_exist){
         let element = document.createElement("button");
@@ -261,6 +265,160 @@
       if (container_2_selected){
         container_2_selected = false
         let element_edit = document.getElementById("other-name-button-2");
+        element_edit.remove();
+      }
+    }
+  }
+
+
+
+
+  let container_3_selected = false
+  let container_3_button_exist = false
+  function add_input_3(value) {
+    let div = document.getElementById("container-3");
+    if (!container_3_button_exist){
+        let element = document.createElement("button");
+        container_3_button_exist = true
+        element.innerHTML = `<%= translated[language]['update'] %>`;
+        element.style.cssText = `background-color: #4CAF50; border: none;margin-top: 5%; color: white;  padding: 2% 20%;  text-align: center !important;  text-decoration: none;  display: inline-block;  font-size: 1.5vw; margin-left: 0px !important;`
+        element.id = "other-name-input-3"
+        element.type = "submit";
+        element.setAttribute("onclick","change_container(this.parentElement,'other-name-input-3');");
+        element.setAttribute('required', '');
+        element.addEventListener("mouseover", function( event ) { event.target.style.backgroundColor = "orange";}, false);
+        element.addEventListener("mouseout", function( event ) {event.target.style.backgroundColor = "#4CAF50";}, false);
+        insertAfter(div, element);
+    }
+    if (value=="another" && !container_3_selected){
+      container_3_selected = true
+      element = document.createElement("input");
+      element.innerHTML = `<input type="text" style="" id="other-name-input-3" name="other-name-input-3" placeholder="New name...">`;
+      element.style.cssText = "margin-left: 10%; width : 80%; margin-top: 5%; placeholder: 'New name'; background-color: #0563af;padding-left: 10px; color: white; border: 0px; margin-left: 0px !important; padding-top: 2%;padding-bottom: 2%;font-size: 1.6vw;"
+      element.className = "other-name-input-3"
+      element.id = "other-name-button-3"
+      insertAfter(div, element);
+    }
+    else{
+      if (container_3_selected){
+        container_3_selected = false
+        let element_edit = document.getElementById("other-name-button-3");
+        element_edit.remove();
+      }
+    }
+  }
+
+
+
+
+  let container_4_selected = false
+  let container_4_button_exist = false
+  function add_input_4(value) {
+    let div = document.getElementById("container-4");
+    if (!container_4_button_exist){
+        let element = document.createElement("button");
+        container_4_button_exist = true
+        element.innerHTML = `<%= translated[language]['update'] %>`;
+        element.style.cssText = `background-color: #4CAF50; border: none;margin-top: 5%; color: white;  padding: 2% 20%;  text-align: center !important;  text-decoration: none;  display: inline-block;  font-size: 1.5vw; margin-left: 0px !important;`
+        element.id = "other-name-input-4"
+        element.type = "submit";
+        element.setAttribute("onclick","change_container(this.parentElement,'other-name-input-4');");
+        element.setAttribute('required', '');
+        element.addEventListener("mouseover", function( event ) { event.target.style.backgroundColor = "orange";}, false);
+        element.addEventListener("mouseout", function( event ) {event.target.style.backgroundColor = "#4CAF50";}, false);
+        insertAfter(div, element);
+    }
+    if (value=="another" && !container_4_selected){
+      container_4_selected = true
+      element = document.createElement("input");
+      element.innerHTML = `<input type="text" style="" id="other-name-input-4" name="other-name-input-4" placeholder="New name...">`;
+      element.style.cssText = "margin-left: 10%; width : 80%; margin-top: 5%; placeholder: 'New name'; background-color: #0563af;padding-left: 10px; color: white; border: 0px; margin-left: 0px !important; padding-top: 2%;padding-bottom: 2%;font-size: 1.6vw;"
+      element.className = "other-name-input-4"
+      element.id = "other-name-button-4"
+      insertAfter(div, element);
+    }
+    else{
+      if (container_4_selected){
+        container_4_selected = false
+        let element_edit = document.getElementById("other-name-button-4");
+        element_edit.remove();
+      }
+    }
+  }
+
+
+
+
+  let container_5_selected = false
+  let container_5_button_exist = false
+  function add_input_5(value) {
+    let div = document.getElementById("container-5");
+    if (!container_5_button_exist){
+        let element = document.createElement("button");
+        container_5_button_exist = true
+        element.innerHTML = `<%= translated[language]['update'] %>`;
+        element.style.cssText = `background-color: #4CAF50; border: none;margin-top: 5%; color: white;  padding: 2% 20%;  text-align: center !important;  text-decoration: none;  display: inline-block;  font-size: 1.5vw; margin-left: 0px !important;`
+        element.id = "other-name-input-5"
+        element.type = "submit";
+        element.setAttribute("onclick","change_container(this.parentElement,'other-name-input-5');");
+        element.setAttribute('required', '');
+        element.addEventListener("mouseover", function( event ) { event.target.style.backgroundColor = "orange";}, false);
+        element.addEventListener("mouseout", function( event ) {event.target.style.backgroundColor = "#4CAF50";}, false);
+        insertAfter(div, element);
+    }
+    if (value=="another" && !container_5_selected){
+      container_5_selected = true
+      element = document.createElement("input");
+      element.innerHTML = `<input type="text" style="" id="other-name-input-5" name="other-name-input-5" placeholder="New name...">`;
+      element.style.cssText = "margin-left: 10%; width : 80%; margin-top: 5%; placeholder: 'New name'; background-color: #0563af;padding-left: 10px; color: white; border: 0px; margin-left: 0px !important; padding-top: 2%;padding-bottom: 2%;font-size: 1.6vw;"
+      element.className = "other-name-input-5"
+      element.id = "other-name-button-5"
+      insertAfter(div, element);
+    }
+    else{
+      if (container_5_selected){
+        container_5_selected = false
+        let element_edit = document.getElementById("other-name-button-5");
+        element_edit.remove();
+      }
+    }
+  }
+
+
+
+
+
+
+  let container_6_selected = false
+  let container_6_button_exist = false
+  function add_input_6(value) {
+    let div = document.getElementById("container-6");
+    if (!container_6_button_exist){
+        let element = document.createElement("button");
+        container_6_button_exist = true
+        element.innerHTML = `<%= translated[language]['update'] %>`;
+        element.style.cssText = `background-color: #4CAF50; border: none;margin-top: 5%; color: white;  padding: 2% 20%;  text-align: center !important;  text-decoration: none;  display: inline-block;  font-size: 1.5vw; margin-left: 0px !important;`
+        element.id = "other-name-input-6"
+        element.type = "submit";
+        element.setAttribute("onclick","change_container(this.parentElement,'other-name-input-6');");
+        element.setAttribute('required', '');
+        element.addEventListener("mouseover", function( event ) { event.target.style.backgroundColor = "orange";}, false);
+        element.addEventListener("mouseout", function( event ) {event.target.style.backgroundColor = "#4CAF50";}, false);
+        insertAfter(div, element);
+    }
+    if (value=="another" && !container_6_selected){
+      container_6_selected = true
+      element = document.createElement("input");
+      element.innerHTML = `<input type="text" style="" id="other-name-input-6" name="other-name-input-6" placeholder="New name...">`;
+      element.style.cssText = "margin-left: 10%; width : 80%; margin-top: 5%; placeholder: 'New name'; background-color: #0563af;padding-left: 10px; color: white; border: 0px; margin-left: 0px !important; padding-top: 2%;padding-bottom: 2%;font-size: 1.6vw;"
+      element.className = "other-name-input-6"
+      element.id = "other-name-button-6"
+      insertAfter(div, element);
+    }
+    else{
+      if (container_6_selected){
+        container_6_selected = false
+        let element_edit = document.getElementById("other-name-button-6");
         element_edit.remove();
       }
     }
