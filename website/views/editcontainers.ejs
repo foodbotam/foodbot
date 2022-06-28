@@ -28,7 +28,7 @@
           color: white;
           text-align: center;
           font-weight: bolder;
-          font-size: 2.7vw;
+          font-size: 2vw;
           margin-bottom: 0px;
           text-transform: uppercase;
         }
@@ -44,6 +44,7 @@
           text-align: center;
           font-size: 1.2vw;
           color: #e4e5ec;
+          text-transform: capitalize;
         }
         .container-selector{
           margin-left: auto;
@@ -59,14 +60,16 @@
           font-weight: bold;
           margin-bottom: 1%;
           width: 80%;
+          font-size: 1vw;
         }
-        #other-name-input{
+        #other-name-input-2{
           text-align: center;
           margin-left: 10%;
         }
         .dropdown-items{
           text-align: center;
           text-transform: capitalize;
+          font-size: 1vw !important;
         }
         #back-button{
             background-color: #323650;
@@ -111,24 +114,27 @@
 
 
 
+    <!-- COntainer 2 part  -->
+    <div class="food-containers" id="container_2">
+        <h1 class="container-inside-text"><%= data["container_2"]["name"][language] %></h1>
+        <h2 class="container-number"><%= translated[language]["container"] %> 2</h2>
+        <img src="<%= data["container_2"]["image_path"] %>" class="container-food-photo" alt="">
+        <select class="container-selector" id="container-2" name="container-2" onchange="add_input(value);">
+            <option value="select" class="dropdown-items" selected disabled><%= translated[language]['choose_another_food'] %></option>
+            <option value="tomato" class="dropdown-items"><%= translated[language]['tomato'] %></option>
+            <option value="cucumber" class="dropdown-items"><%= translated[language]['cucumber'] %></option>
+            <option value="sausage" class="dropdown-items"><%= translated[language]['sausage'] %></option>
+            <option value="cheese" class="dropdown-items"><%= translated[language]['cheese'] %></option>
+            <option value="onion" class="dropdown-items"><%= translated[language]['onion'] %></option>
+            <option value="green_pepper" class="dropdown-items"><%= translated[language]['green_pepper'] %></option>
+            <option value="another" class="dropdown-items"><%= translated[language]['another'] %></option>
+        </select>
+    </div>
 
-  <div class="food-containers" id="container_2">
-    <h1 class="container-inside-text"><%= data["container_2"]["name"][language] %></h1>
-    <% if(language=="en"){ %>
-      <h2 class="container-number">Container 2</h2>
-    <% } %>
-    <% if(language=="am"){ %>
-      <h2 class="container-number">Տարրա 2</h2>
-    <% } %>
-    <img src="<%= data["container_2"]["image_path"] %>" class="container-food-photo" alt="">
-    <select class="container-selector" id="container-2" name="container-2" onchange="add_input(value);">
-        <option value="select" class="dropdown-items" selected disabled><%= translated[language]['choose_another_food'] %></option>
-        <option value="tomato" class="dropdown-items"><%= translated[language]['tomato'] %></option>
-        <option value="cucumber" class="dropdown-items"><%= translated[language]['cucumber'] %></option>
-        <option value="sausage" class="dropdown-items"><%= translated[language]['sausage'] %></option>
-        <option value="another" class="dropdown-items"><%= translated[language]['another'] %></option>
-    </select>
-</div>
+
+
+
+
 
 
 <div class="food-containers" id="container_3">
@@ -204,11 +210,11 @@
 
 <script>
   
-    function change_container(container) {
+    function change_container(container,classname) {
       let selected_value = document.getElementById(container.id).getElementsByClassName("container-selector")[0].value;
       let newitem = selected_value;
       if (selected_value == "another"){
-        newitem = document.getElementById(container.id).getElementsByClassName("other-name-input")[0].value;
+        newitem = document.getElementById(container.id).getElementsByClassName(classname)[0].value;
         console.log(newitem);
       }
       console.log(selected_value);
@@ -230,36 +236,32 @@
   function add_input(value) {
     let div = document.getElementById("container-2");
     if (!container_2_button_exist){
-      let element = document.createElement("button");
-      container_2_button_exist = true
-      element.innerHTML = `<%= translated[language]['update'] %>`;
-      element.style.cssText = `background-color: #4CAF50; border: none;margin-top: 5%; color: white;  padding: 2% 20%;  text-align: center !important;  text-decoration: none;  display: inline-block;  font-size: 1.5vw; margin-left: 0px !important;`
-      element.id = "other-name-input"
-      element.type = "submit";
-      element.setAttribute("onclick","change_container(this.parentElement);");
-      element.setAttribute('required', '');
-      element.addEventListener("mouseover", function( event ) {
-      event.target.style.backgroundColor = "orange";
-    }, false);
-    element.addEventListener("mouseout", function( event ) {
-      event.target.style.backgroundColor = "#4CAF50";
-    }, false);
-    insertAfter(div, element);
-  }
+        let element = document.createElement("button");
+        container_2_button_exist = true
+        element.innerHTML = `<%= translated[language]['update'] %>`;
+        element.style.cssText = `background-color: #4CAF50; border: none;margin-top: 5%; color: white;  padding: 2% 20%;  text-align: center !important;  text-decoration: none;  display: inline-block;  font-size: 1.5vw; margin-left: 0px !important;`
+        element.id = "other-name-input-2"
+        element.type = "submit";
+        element.setAttribute("onclick","change_container(this.parentElement,'other-name-input-2');");
+        element.setAttribute('required', '');
+        element.addEventListener("mouseover", function( event ) { event.target.style.backgroundColor = "orange";}, false);
+        element.addEventListener("mouseout", function( event ) {event.target.style.backgroundColor = "#4CAF50";}, false);
+        insertAfter(div, element);
+    }
     if (value=="another" && !container_2_selected){
       container_2_selected = true
       element = document.createElement("input");
-      element.innerHTML = `<input type="text" style="" id="other-name-input" name="other-name-input" placeholder="New name...">`;
+      element.innerHTML = `<input type="text" style="" id="other-name-input-2" name="other-name-input-2" placeholder="New name...">`;
       element.style.cssText = "margin-left: 10%; width : 80%; margin-top: 5%; placeholder: 'New name'; background-color: #0563af;padding-left: 10px; color: white; border: 0px; margin-left: 0px !important; padding-top: 2%;padding-bottom: 2%;font-size: 1.6vw;"
-      element.className = "other-name-input"
-      element.id = "other-name-button"
+      element.className = "other-name-input-2"
+      element.id = "other-name-button-2"
       insertAfter(div, element);
     }
     else{
       if (container_2_selected){
         container_2_selected = false
-        var elem2 = document.getElementById("other-name-button");
-        elem2.remove();
+        let element_edit = document.getElementById("other-name-button-2");
+        element_edit.remove();
       }
     }
   }

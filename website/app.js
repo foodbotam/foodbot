@@ -13,7 +13,7 @@ const ap = "553225726ea919e57e3d61bcaf4a1b24"
 
 
 var admin_loggedin = false;
-var language = "en";
+var language = "am";
 var translated = {
 	"am" : {
 		"home" : "գլխավոր",
@@ -46,7 +46,11 @@ var translated = {
 		"add" : "ավելացնել",
 		"back" : "հետ",
 		"admin_login_error" : "Գաղտնաբառը կամ մուտքանունը սխալ է",
-		"success_device_add" : "Նոր սարքավորումը հաջողությամբ ավելացվեց"
+		"success_device_add" : "Նոր սարքավորումը հաջողությամբ ավելացվեց",
+		"container" :"տարրա",
+		"cheese" : "պանիր",
+		"onion" : "սոխ",
+		"green_pepper" : "կանաչ բիբար"
 	},
 	"en" : {
 		"home" : "home",
@@ -79,8 +83,11 @@ var translated = {
 		"add" : "add",
 		"back" : "back",
 		"admin_login_error" : "Password or username is wrong",
-		"success_device_add" : "New device has been added successfully"
-
+		"success_device_add" : "New device has been added successfully",
+		"container" :"container",
+		"cheese" : "cheese",
+		"onion" : "onion",
+		"green_pepper" : "green pepper"
 	}
 }
 
@@ -127,7 +134,7 @@ function make_json_file(name, password) {
 function edit_container(container, newname, device_id){
 	let json_file_path = `public/devices/${md5(device_id)}.json`
 	let json_data =  JSON.parse(fs.readFileSync(json_file_path));
-	if (newname=="cucumber" || newname=="sausage" || newname=="tomato") {
+	if (newname=="cucumber" || newname=="sausage" || newname=="tomato" || newname=="cheese" || newname=="onion" || newname=="green_pepper") {
 		json_data[container]["name"]['en'] = newname
 		json_data[container]["name"]['am'] = translated["am"][newname]
 		json_data[container]["image_path"] = `images/sandwich/${newname}.png`
