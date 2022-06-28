@@ -7,8 +7,12 @@ const session = require("express-session");
 const fs = require('fs');
 const { connect } = require("http2");
 const app = express();
-const port = 3001;
+const port = 3000;
+const au = "d6ca3fd0c3a3b462ff2b83436dda495e"
+const ap = "553225726ea919e57e3d61bcaf4a1b24"
 
+
+var admin_loggedin = false;
 var language = "en";
 var translated = {
 	"am" : {
@@ -24,7 +28,22 @@ var translated = {
 		"login_error" : "Սարքավորման այդին կամ գաղտնաբառը սխալ է",
 		"aboutus" : "մեր մասին",
 		"contactus" : "կապնվել մեզ հետ",
-		"help" : "օգնություն"
+		"help" : "օգնություն",
+		"update" : "թարմացնել",
+		"bread" : "հաց",
+		"cucumber" : "վարունգ",
+		"tomato" : "լոլիկ",
+		"sausage" : "երշիկ",
+		"choose_another_food" : "Ընտրել այլ ուտելիք",
+		"another" : "այլ",
+		"ketchup" : "կոտչուպ",
+		"mayonnaise" : "մայոնեզ",
+		"admin_login" : "մուտք ադմին վահանակ",
+		"admin_username" : "ադմինի մուտքանուն",
+		"admin_password" : "ադմինի գաղտնաբառ",
+		"admin" : "ադմին",
+		"new_device" : "նոր սարքավորում",
+		"add" : "ավելացնել"
 	},
 	"en" : {
 		"home" : "home",
@@ -39,7 +58,22 @@ var translated = {
 		"login_error" : "Device id or password is wrong",
 		"aboutus" : "about us",
 		"contactus" : "contact us",
-		"help" : "help"
+		"help" : "help",
+		"update" : "update",
+		"bread" : "bread",
+		"cucumber" : "cucumber",
+		"tomato" : "tomato",
+		"sausage" : "sausage",
+		"choose_another_food" : "Choose another food",
+		"another" : "another",
+		"ketchup" : "ketchup",
+		"mayonnaise" : "mayonnaise",
+		"admin_login" : "login admin panel",
+		"admin_username" : "admin username",
+		"admin_password" : "admin password",
+		"admin" : "admin",
+		"new_device" : "new device",
+		"add" : "add"
 	}
 }
 
@@ -73,15 +107,36 @@ function make_json_file(name, password) {
 	"container_2" : {"name" : {"en" : "tomato", "am" : "լոլիկ"}, "image_path" : "images/sandwich/tomato.png"},
 	"container_3" : {"name" : {"en" : "cucumber", "am" : "վարունգ"}, "image_path" : "images/sandwich/cucumber.png"},
 	"container_4" : {"name" : {"en" : "sausage", "am" : "երշիկ"}, "image_path" : "images/sandwich/sausage.png"},
-	"container_5" : "ketchup",
-	"container_6" : "mayonnaise",
+	"container_5" : {"name" : {"en" : "ketchup", "am" : "կետչուպ"}, "image_path" : "images/sandwich/ketchup.png"},
+	"container_6" : {"name" : {"en" : "mayonnaise", "am" : "մայոնեզ"}, "image_path" : "images/sandwich/mayonnaise.png"},
 	"container_7" : "salt",
 	"container_8" : "pepper"
 }
 	`;
 	let jsonObj = JSON.parse(jsonData);
 	let jsonContent = JSON.stringify(jsonObj);
-	fs.writeFile(json_file_path, jsonData, "utf8", function (err) { });
+	fs.writeFileSync(json_file_path, jsonData, "utf8", function (err) { });
+}
+
+function edit_container(container, newname, device_id){
+	let json_file_path = `public/devices/${md5(device_id)}.json`
+	let json_data =  JSON.parse(fs.readFileSync(json_file_path));
+	if (newname=="cucumber" || newname=="sausage" || newname=="tomato") {
+		json_data[container]["name"]['en'] = newname
+		json_data[container]["name"]['am'] = translated["am"][newname]
+		json_data[container]["image_path"] = `images/sandwich/${newname}.png`
+		console.log(json_data);
+		let jsonContent = JSON.stringify(json_data);
+		fs.writeFile(json_file_path, jsonContent, "utf8", function (err) { });
+	}
+	else {
+		json_data[container]["name"]['en'] = newname
+		json_data[container]["name"]['am'] = newname
+		json_data[container]["image_path"] = `images/sandwich/another.png`
+		console.log(json_data);
+		let jsonContent = JSON.stringify(json_data);
+		fs.writeFile(json_file_path, jsonContent, "utf8", function (err) { });
+	}
 }
 
 // Function for reading json file 
@@ -166,12 +221,24 @@ app.get("/logout", (req, res) => {
 	res.redirect("/home")
 });
 
+// Function for runing admin logout 
+app.get("/adminlogout", (req, res) => {
+	req.session.admin_loggedin = false
+	admin_loggedin = false
+	res.redirect("/home")
+});
+
 // Function for showing products mady by foodbot 
 app.get("/products", (req, res) => {
 	res.render("products.ejs", { uorp: req.session.loggedin, language: language, translated: translated })
 });
 
 // If you post on this url you will change language
+app.get("/changelanguage", (req, res) => {
+	res.redirect("/home")
+}
+);
+
 app.post("/changelanguage/:selected_language", (req, res) => {
 	language = req.params.selected_language
 	if (language=="armenian")
@@ -183,6 +250,43 @@ app.post("/changelanguage/:selected_language", (req, res) => {
 		language = "en"
 	}
 	console.log(language);
+});
+
+
+
+app.post("/changecontainer/:container/:newitem", (req, res) => {
+	let container = req.params.container
+	let newname = req.params.newitem
+	edit_container(container, newname, req.session.deviceid)
+});
+
+
+
+// Function for opening admin panel
+app.get("/admin", (req, res) => {
+	if (admin_loggedin){
+		res.render("admin.ejs", {uorp: admin_loggedin, translated: translated, language: language})
+	}
+	else{
+		res.render("adminlogin.ejs", {uorp: admin_loggedin, translated: translated, language: language})
+	}
+}
+);
+app.post("/admin", (req, res) => {
+	console.log(req.body);
+	if (req.body.newdevicename) {
+		make_json_file(req.body.newdevicename, req.body.newdevicepassword)
+		res.redirect("/admin")
+	}
+	else{
+		if (md5(req.body.adminusername)==au && md5(req.body.adminpassword)==ap){
+			admin_loggedin = true;
+			res.redirect("/admin")
+		}
+		else{
+			res.render("adminlogin.ejs",{uorp : false, translated: translated, language: language})
+		}
+	}
 });
 
 // Running server

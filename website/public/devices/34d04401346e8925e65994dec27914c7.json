@@ -1,6 +1,6 @@
 
 {
-	"password" : "553225726ea919e57e3d61bcaf4a1b24",
+	"password" : "34d04401346e8925e65994dec27914c7",
 	"type" : "sandwich",
 	"container_1" : {"name" : {"en" : "bread", "am" : "հաց"} , "image_path" : "images/sandwich/bread.png"},
 	"container_2" : {"name" : {"en" : "tomato", "am" : "լոլիկ"}, "image_path" : "images/sandwich/tomato.png"},

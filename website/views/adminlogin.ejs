@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body{
+            background-color: #78aecb;
+            text-align: center;
+        }
+        #login_div {
+            text-align: center;
+            width: 30%;
+            position: absolute;
+            left: 35%;
+            top: 40%;
+            height: auto;
+            background-color: #407690;
+            border-radius: 5px;
+        }
+        h1 {
+            color: white;
+            font-family:sans-serif;
+            font-size: 1.5vw;
+            text-transform: capitalize;
+        }
+        .input{
+            border: 0px;
+            background-color: #78aecb !important;
+            width: 80%;
+            margin-top: 2%;
+            margin-bottom: 2%;
+            font-size: 1.2vw;
+            padding: 2% 2% 2% 5%;
+            border-radius: 5px;
+            color: white;
+        }
+        #button{
+            background-color: #78aecb;
+            border: 0px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.3vw;
+            border-radius: 5px;
+            margin-top: 3%;
+            margin-bottom: 5%;
+            width: 87%;
+            padding-top: 2%;
+            padding-bottom: 2%;
+        }
+        #button:hover{
+            width: 90%;
+            cursor: pointer;
+        }
+        @media only screen and (max-width: 1000px) {
+            #login_div {
+                width: 80%;
+                left: 10%;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .input{
+                font-size: 1.4em;
+            }
+            #button{
+                font-size: 1.4em;
+            }
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="images/logo.png">
+  <title>Login - Admin</title>
+</head>
+<body>
+    <form action="/admin" method="POST">
+        <div id="login_div">
+            <h1><%= translated[language]['admin_login'] %></h1>
+            <input type="text" id="username" placeholder="<%= translated[language]['admin_username'] %>" class="input" name="adminusername" id="">
+            <input type="password" id="password" placeholder="<%= translated[language]['admin_password'] %>" class="input" name="adminpassword" id="">
+            <button type="submit" id="button"><%= translated[language]['login'] %></button>
+        </div>  
+    </form>
+</body>
+</html>

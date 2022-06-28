@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="images/logo.png">
+  <title>Admin login</title>
+    <style>
+        body{
+            padding: 0%;
+            margin: 0%;
+            background-color: #78aecb;
+        }
+        #header{
+            background-color: #407690;
+            width: 100%;
+            height: 10%;
+            padding-bottom: 1%;
+            padding-top: 1%;
+            letter-spacing: 2px;
+        }
+        h1{
+            margin: 0;
+            color: white;
+            margin-left: 1%;
+            text-transform: capitalize;
+            box-sizing: border-box;
+        }
+        #logout{
+            float: right;
+        }
+        #new-element{
+            width: 40%;
+            background-color: #407690;
+            height: auto;
+            margin-top: 2%;
+            margin-left: 2%;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+        }
+        #new_device_text{
+            font-size: 25px;
+            font-weight: bold;
+        }
+        #submit_button{
+
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark" style="background-color: #e3f2fd;">
+        <!-- Navbar content -->
+        <h1><%= translated[language]["admin"] %></h1>
+        <form action="/adminlogout">
+            <input type="submit" id="logout" value="Logout">
+        </form>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Features</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+              </li>
+            </ul>
+            <span class="navbar-text">
+              Navbar text with an inline element
+            </span>
+          </div>
+    </nav>
+    <div id="new-element">
+        <h1 id="new_device_text"><%= translated[language]["new_device"] %></h1>
+        <form action="/admin" method="POST" type="submit">
+            <input type="text" name="newdevicename" id="">
+            <input type="text" name="newdevicepassword" id="">
+            <input type="submit" id="submit_button" value="<%= translated[language]["add"] %>">
+        </form>
+    </div>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
