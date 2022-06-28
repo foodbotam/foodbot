@@ -18,7 +18,7 @@
         }
         h1 {
             color: white;
-            font-family:sans-serif;
+            font-family:sans-serif; 
             font-size: 1.5vw;
             text-transform: capitalize;
         }
@@ -78,6 +78,9 @@
             <h1><%= translated[language]['admin_login'] %></h1>
             <input type="text" id="username" placeholder="<%= translated[language]['admin_username'] %>" class="input" name="adminusername" id="">
             <input type="password" id="password" placeholder="<%= translated[language]['admin_password'] %>" class="input" name="adminpassword" id="">
+            <% if (error=="admin_login_error") { %>
+                <br><h1 style="color: yellow; float: left; margin-left: 7%; text-transform: none; font-size: 1vw; "><%= translated[language][error] %></h1>
+            <% } %>
             <button type="submit" id="button"><%= translated[language]['login'] %></button>
         </div>  
     </form>

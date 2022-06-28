@@ -8,9 +8,8 @@
   <title>Admin login</title>
     <style>
         body{
-            padding: 0%;
-            margin: 0%;
-            background-color: #78aecb;
+            text-align: center;
+            background-color: #4c86a3 !important;
         }
         #header{
             background-color: #407690;
@@ -31,8 +30,9 @@
             float: right;
         }
         #new-element{
+            margin-left: 30%  !important;
             width: 40%;
-            background-color: #407690;
+            background-color: #78aecb;
             height: auto;
             margin-top: 2%;
             margin-left: 2%;
@@ -44,41 +44,63 @@
             font-size: 25px;
             font-weight: bold;
         }
-        #submit_button{
-
+        #back-button{
+            background-color: #323650;
+            color: white;
+            text-transform: uppercase;
+            font-weight: bolder;
+            border: 0px;
+            width: 90%;
+            margin-left: 5%;
+            margin-top: 2%;
+            border-radius: 15px;
         }
+        #back-button:hover {
+            background-color: rgb(255, 136, 0);
+        }
+        label{
+            font-size: 1vw;
+            text-transform: capitalize;
+        }
+        .newinfo {
+            border: 0;
+            padding-left: 1%;
+        }
+        #submit_button{
+            text-transform: capitalize;
+            width: 50%;
+            border: 0;
+            background-color: teal;
+            color: white;
+            font-size: 1.2vw;
+            font-weight: bolder;
+            margin-bottom: 2%;
+            border-radius: 5px;
+        }
+        #submit_button:hover{
+            background-color: rgb(21, 153, 153);
+        }
+
+
+
+        
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-dark" style="background-color: #e3f2fd;">
-        <!-- Navbar content -->
-        <h1><%= translated[language]["admin"] %></h1>
-        <form action="/adminlogout">
-            <input type="submit" id="logout" value="Logout">
-        </form>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-              </li>
-            </ul>
-            <span class="navbar-text">
-              Navbar text with an inline element
-            </span>
-          </div>
-    </nav>
+<button type="button" class="btn btn-primary btn-lg btn-block" onclick="window.location.replace('/home')" id="back-button"><%= translated[language]["back"] %></button>
+<button type="button" class="btn btn-primary btn-lg btn-block" onclick="window.location.replace('/adminlogout')" id="back-button"><%= translated[language]["logout"] %></button>
+    
     <div id="new-element">
         <h1 id="new_device_text"><%= translated[language]["new_device"] %></h1>
         <form action="/admin" method="POST" type="submit">
-            <input type="text" name="newdevicename" id="">
-            <input type="text" name="newdevicepassword" id="">
+            <label for="newdevicename"><%= translated[language]["device_id"] %></label>
+            <input class="newinfo" type="text" name="newdevicename" id="newusername" required> <br>
+            <label for="newdevicepassword"><%= translated[language]["password"] %></label>
+            <input class="newinfo" type="text" name="newdevicepassword" id="newpassword" required> <br>
+            <% if (error=="success_device_add") { %>
+                <br><h1 style="color: yellow; float: left; margin-left: 7%; text-transform: none; font-size: 1vw; "><%= translated[language][error] %></h1>
+            <% } %>
             <input type="submit" id="submit_button" value="<%= translated[language]["add"] %>">
         </form>
     </div>

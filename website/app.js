@@ -43,7 +43,10 @@ var translated = {
 		"admin_password" : "ադմինի գաղտնաբառ",
 		"admin" : "ադմին",
 		"new_device" : "նոր սարքավորում",
-		"add" : "ավելացնել"
+		"add" : "ավելացնել",
+		"back" : "հետ",
+		"admin_login_error" : "Գաղտնաբառը կամ մուտքանունը սխալ է",
+		"success_device_add" : "Նոր սարքավորումը հաջողությամբ ավելացվեց"
 	},
 	"en" : {
 		"home" : "home",
@@ -73,7 +76,11 @@ var translated = {
 		"admin_password" : "admin password",
 		"admin" : "admin",
 		"new_device" : "new device",
-		"add" : "add"
+		"add" : "add",
+		"back" : "back",
+		"admin_login_error" : "Password or username is wrong",
+		"success_device_add" : "New device has been added successfully"
+
 	}
 }
 
@@ -92,7 +99,6 @@ app.use(express.static(__dirname + '/public'));
 // Function which will return true if file exist or false if not exist
 function check_file_exist(name) {
 	const file_path = path.join(__dirname, `public/devices/${md5(name)}.json`)
-	console.log(fs.existsSync(file_path));
 	return fs.existsSync(file_path)
 }
 
@@ -125,7 +131,6 @@ function edit_container(container, newname, device_id){
 		json_data[container]["name"]['en'] = newname
 		json_data[container]["name"]['am'] = translated["am"][newname]
 		json_data[container]["image_path"] = `images/sandwich/${newname}.png`
-		console.log(json_data);
 		let jsonContent = JSON.stringify(json_data);
 		fs.writeFile(json_file_path, jsonContent, "utf8", function (err) { });
 	}
@@ -133,7 +138,6 @@ function edit_container(container, newname, device_id){
 		json_data[container]["name"]['en'] = newname
 		json_data[container]["name"]['am'] = newname
 		json_data[container]["image_path"] = `images/sandwich/another.png`
-		console.log(json_data);
 		let jsonContent = JSON.stringify(json_data);
 		fs.writeFile(json_file_path, jsonContent, "utf8", function (err) { });
 	}
@@ -213,6 +217,16 @@ app.get("/devicecontrol", (req, res) => {
 	}
 });
 
+// Function for device control page
+app.get("/editcontainers", (req, res) => {
+	if (req.session.loggedin){
+		res.render("editcontainers.ejs", { uorp: req.session.loggedin, data: read_device_info(req.session.deviceid), language: language, translated: translated})
+	}
+	else{
+		res.redirect("/login")
+	}
+});
+
 // Function for runing logout 
 app.get("/logout", (req, res) => {
 	req.session.loggedin = false
@@ -249,7 +263,6 @@ app.post("/changelanguage/:selected_language", (req, res) => {
 	{
 		language = "en"
 	}
-	console.log(language);
 });
 
 
@@ -262,21 +275,27 @@ app.post("/changecontainer/:container/:newitem", (req, res) => {
 
 
 
-// Function for opening admin panel
+// Function for opening admin page
 app.get("/admin", (req, res) => {
 	if (admin_loggedin){
-		res.render("admin.ejs", {uorp: admin_loggedin, translated: translated, language: language})
+		res.render("admin.ejs", {uorp: admin_loggedin, translated: translated, language: language, error: "noerror"})
 	}
 	else{
-		res.render("adminlogin.ejs", {uorp: admin_loggedin, translated: translated, language: language})
+		res.render("adminlogin.ejs", {uorp: admin_loggedin, translated: translated, language: language, error: "noerror"})
 	}
 }
 );
+
+// Function for opening admin page
 app.post("/admin", (req, res) => {
-	console.log(req.body);
 	if (req.body.newdevicename) {
 		make_json_file(req.body.newdevicename, req.body.newdevicepassword)
-		res.redirect("/admin")
+		if (admin_loggedin){
+			res.render("admin.ejs", {uorp: admin_loggedin, translated: translated, language: language, error: "success_device_add"})
+		}
+		else{
+			res.render("adminlogin.ejs", {uorp: admin_loggedin, translated: translated, language: language, error: "noerror"})
+		}
 	}
 	else{
 		if (md5(req.body.adminusername)==au && md5(req.body.adminpassword)==ap){
@@ -284,12 +303,12 @@ app.post("/admin", (req, res) => {
 			res.redirect("/admin")
 		}
 		else{
-			res.render("adminlogin.ejs",{uorp : false, translated: translated, language: language})
+			res.render("adminlogin.ejs",{uorp : false, translated: translated, language: language, error: "admin_login_error"})
 		}
 	}
 });
 
 // Running server
 app.listen(port, () => {
-	console.log(`Example app listening on port ${port}`)
+	console.log(`Program started runing. Open  http://localhost:${port}`)
 })
