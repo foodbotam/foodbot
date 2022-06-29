@@ -38,7 +38,8 @@
         "mustard": "մանանեխ",
         "salt" : "աղ",
         "pepper" : "սև բիբար",
-        "edit_containers" : "փոփոխել տարրաները"
+        "edit_containers" : "փոփոխել տարրաները",
+        "click_to_add" : "սեղմեք ավելացնելու համար"
     },
     "en": {
         "home": "home",
@@ -79,7 +80,8 @@
         "mustard": "mustard",
         "salt" : "salt",
         "pepper" : "black pepper",
-        "edit_containers" : "edit containers"
+        "edit_containers" : "edit containers",
+        "click_to_add" : "click to add"
     },
     "ru": {
         "home": "главная",
@@ -120,6 +122,7 @@
         "mustard": "горчица",
         "salt" : "соль",
         "pepper" : "черный перец",
-        "edit_containers" : "редактировать контейнеры"
+        "edit_containers" : "редактировать контейнеры",
+        "click_to_add" : "нажмите, чтобы добавить"
     }
 }

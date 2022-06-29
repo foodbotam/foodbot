@@ -41,14 +41,14 @@ function make_json_file(name, password) {
 {
 	"password" : "${md5(password)}",
 	"type" : "sandwich",
-	"container_1" : {"name" : "bread" , "image_path" : "images/sandwich/bread.png"},
-	"container_2" : {"name" : "tomato", "image_path" : "images/sandwich/tomato.png"},
-	"container_3" : {"name" : "cucumber", "image_path" : "images/sandwich/cucumber.png"},
-	"container_4" : {"name" : "sausage", "image_path" : "images/sandwich/sausage.png"},
-	"container_5" : {"name" : "ketchup", "image_path" : "images/sandwich/ketchup.png"},
-	"container_6" : {"name" : "mayonnaise", "image_path" : "images/sandwich/mayonnaise.png"},
-	"container_7" : {"name" : "salt", "image_path" : "images/sandwich/salt.png"},
-	"container_8" : {"name" : "pepper", "image_path" : "images/sandwich/pepper.png"}
+	"container_1" : {"name" : "bread" , "image_path" : "images/sandwich/bread.png", "layer_image_path" : "images/sandwichlayers/bread.png"},
+	"container_2" : {"name" : "tomato", "image_path" : "images/sandwich/tomato.png", "layer_image_path" : "images/sandwichlayers/tomato.png"},
+	"container_3" : {"name" : "cucumber", "image_path" : "images/sandwich/cucumber.png", "layer_image_path" : "images/sandwichlayers/cucumber.png"},
+	"container_4" : {"name" : "sausage", "image_path" : "images/sandwich/sausage.png", "layer_image_path" : "images/sandwichlayers/sausage.png"},
+	"container_5" : {"name" : "ketchup", "image_path" : "images/sandwich/ketchup.png", "layer_image_path" : "images/sandwichlayers/ketchup.png"},
+	"container_6" : {"name" : "mayonnaise", "image_path" : "images/sandwich/mayonnaise.png", "layer_image_path" : "images/sandwichlayers/mayonnaise.png"},
+	"container_7" : {"name" : "salt", "image_path" : "images/sandwich/salt.png", "layer_image_path" : "images/sandwichlayers/salt.png"},
+	"container_8" : {"name" : "pepper", "image_path" : "images/sandwich/pepper.png", "layer_image_path" : "images/sandwichlayers/pepper.png"}
 }
 	`;
 	let jsonObj = JSON.parse(jsonData);
@@ -67,6 +67,7 @@ function edit_container(container, newname, device_id, loggedin){
 		json_data[container]["name"] = newname
 		json_data[container]["type"] = "special"
 		json_data[container]["image_path"] = `images/sandwich/${newname}.png`
+		json_data[container]["layer_image_path"] = `images/sandwichlayers/${newname}.png`
 		let jsonContent = JSON.stringify(json_data);
 		fs.writeFile(json_file_path, jsonContent, "utf8", function (err) { });
 	}
@@ -75,12 +76,15 @@ function edit_container(container, newname, device_id, loggedin){
 		json_data[container]["type"] = "other"
 		if(container=="container_1" || container=="container_2" || container=="container_3" || container=="container_4"){
 			json_data[container]["image_path"] = `images/sandwich/anotherfood.png`
+			json_data[container]["layer_image_path"] = `images/sandwichlayers/anotherfood.png`
 		}
 		else if(container=="container_5" || container=="container_6"){
-			json_data[container]["image_path"] = `images/sandwich/anothersauce.png`
+			json_data[container]["image_path"] = `images/sandwich/anotherfood.png`
+			json_data[container]["layer_image_path"] = `images/sandwichlayers/anothersauce.png`
 		}
 		else if(container=="container_7" || container=="container_8"){
-			json_data[container]["image_path"] = `images/sandwich/anotherspice.png`
+			json_data[container]["image_path"] = `images/sandwich/anotherfood.png`
+			json_data[container]["layer_image_path"] = `images/sandwichlayers/anotherspice.png`
 		}
 		let jsonContent = JSON.stringify(json_data);
 		fs.writeFile(json_file_path, jsonContent, "utf8", function (err) { });
@@ -131,7 +135,7 @@ app.post("/login", (req, res) => {
 			}
 			else
 			{
-				res.render("login.ejs", { uorp: false , translated: translated, language: language})
+				res.render("login.ejs", { uorp: false , translated: translated, language: language, error: "noerror"})
 			}
 		}
 		else {
