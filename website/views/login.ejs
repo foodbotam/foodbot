@@ -126,6 +126,9 @@
                             </div>
                             <input type="password" class="form-control" placeholder="<%= translated[language]['password'] %>" name="password" required>
                         </div>
+                        <% if (error=="login_error") { %>
+                            <br><h1 style="color: yellow; float: left; margin-left: 7%; text-transform: none; font-size: 1vw; "><%= translated[language][error] %></h1>
+                        <% } %>
                         <div class="form-group">
                             <input type="submit" id="login-button" value="<%= translated[language]['connect'] %>" class="btn login_btn">
                         </div>

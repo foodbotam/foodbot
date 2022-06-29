@@ -30,7 +30,7 @@
           font-weight: bolder;
           font-size: 2vw;
           margin-bottom: 0px;
-          text-transform: uppercase;
+          text-transform: capitalize;
         }
         .container-food-photo{
           width: 16vw;
@@ -85,7 +85,23 @@
         #back-button:hover {
             background-color: rgb(255, 136, 0);
         }
+
+          @media only screen and (max-width: 500px) {
+            .food-containers{
+              
+            width: 40%;
+            height: auto;
+            margin-left: 5%;
+            margin-right: 4%;
+            }
+          }
     </style>
+
+
+<button type="button" class="btn btn-primary btn-lg btn-block" onclick="window.location.replace('/devicecontrol')" id="back-button"><%= translated[language]["back"] %></button>
+
+
+
 
 
 <!-- Container 1 part  -->
@@ -211,6 +227,44 @@
             </select>
         </div>
 </div>
+
+
+
+
+
+
+
+
+
+          <!-- Container 7 part  -->
+          <div class="food-containers" id="container_7">
+            <h1 class="container-inside-text"> <% if (data["container_7"]["type"]=="other") { %> <%= data["container_7"]["name"] %> <% } else {  %> <%= translated[language][data["container_7"]["name"]] %> <% } %></h1>
+                <h2 class="container-number"><%= translated[language]["container"] %> 7</h2>
+                <img src="<%= data["container_7"]["image_path"] %>" class="container-food-photo" alt="">
+                <select class="container-selector" id="container-7" name="container-7" onchange="add_input_7(value);">
+                  <option value="no name" class="dropdown-items" selected disabled><%= translated[language]['choose_another_food'] %></option>
+                  <option value="salt" class="dropdown-items"><%= translated[language]['salt'] %></option>
+                  <option value="pepper" class="dropdown-items"><%= translated[language]['pepper'] %></option>
+                  <option value="another" class="dropdown-items"><%= translated[language]['another'] %></option>
+                </select>
+            </div>
+
+
+
+       <!-- Container 8 part  -->
+    <div class="food-containers" id="container_8">
+      <h1 class="container-inside-text"> <% if (data["container_8"]["type"]=="other") { %> <%= data["container_8"]["name"] %> <% } else {  %> <%= translated[language][data["container_8"]["name"]] %> <% } %></h1>
+          <h2 class="container-number"><%= translated[language]["container"] %> 8</h2>
+          <img src="<%= data["container_8"]["image_path"] %>" class="container-food-photo" alt="">
+          <select class="container-selector" id="container-8" name="container-8" onchange="add_input_8(value);">
+            <option value="no name" class="dropdown-items" selected disabled><%= translated[language]['choose_another_food'] %></option>
+            <option value="salt" class="dropdown-items"><%= translated[language]['salt'] %></option>
+            <option value="pepper" class="dropdown-items"><%= translated[language]['pepper'] %></option>
+            <option value="another" class="dropdown-items"><%= translated[language]['another'] %></option>
+          </select>
+      </div>
+</div>
+
 
 <script>
   
@@ -419,6 +473,86 @@
       if (container_6_selected){
         container_6_selected = false
         let element_edit = document.getElementById("other-name-button-6");
+        element_edit.remove();
+      }
+    }
+  }
+
+
+
+
+  let container_7_selected = false
+  let container_7_button_exist = false
+  function add_input_7(value) {
+    let div = document.getElementById("container-7");
+    if (!container_7_button_exist){
+        let element = document.createElement("button");
+        container_7_button_exist = true
+        element.innerHTML = `<%= translated[language]['update'] %>`;
+        element.style.cssText = `background-color: #4CAF50; border: none;margin-top: 5%; color: white;  padding: 2% 20%;  text-align: center !important;  text-decoration: none;  display: inline-block;  font-size: 1.5vw; margin-left: 0px !important;`
+        element.id = "other-name-input-7"
+        element.type = "submit";
+        element.setAttribute("onclick","change_container(this.parentElement,'other-name-input-7');");
+        element.setAttribute('required', '');
+        element.addEventListener("mouseover", function( event ) { event.target.style.backgroundColor = "orange";}, false);
+        element.addEventListener("mouseout", function( event ) {event.target.style.backgroundColor = "#4CAF50";}, false);
+        insertAfter(div, element);
+    }
+    if (value=="another" && !container_7_selected){
+      container_7_selected = true
+      element = document.createElement("input");
+      element.innerHTML = `<input type="text" style="" id="other-name-input-7" name="other-name-input-7" placeholder="New name...">`;
+      element.style.cssText = "margin-left: 10%; width : 80%; margin-top: 5%; placeholder: 'New name'; background-color: #0563af;padding-left: 10px; color: white; border: 0px; margin-left: 0px !important; padding-top: 2%;padding-bottom: 2%;font-size: 1.6vw;"
+      element.className = "other-name-input-7"
+      element.id = "other-name-button-7"
+      insertAfter(div, element);
+    }
+    else{
+      if (container_7_selected){
+        container_7_selected = false
+        let element_edit = document.getElementById("other-name-button-7");
+        element_edit.remove();
+      }
+    }
+  }
+
+
+
+
+
+
+
+
+  let container_8_selected = false
+  let container_8_button_exist = false
+  function add_input_8(value) {
+    let div = document.getElementById("container-8");
+    if (!container_8_button_exist){
+        let element = document.createElement("button");
+        container_8_button_exist = true
+        element.innerHTML = `<%= translated[language]['update'] %>`;
+        element.style.cssText = `background-color: #4CAF50; border: none;margin-top: 5%; color: white;  padding: 2% 20%;  text-align: center !important;  text-decoration: none;  display: inline-block;  font-size: 1.5vw; margin-left: 0px !important;`
+        element.id = "other-name-input-8"
+        element.type = "submit";
+        element.setAttribute("onclick","change_container(this.parentElement,'other-name-input-8');");
+        element.setAttribute('required', '');
+        element.addEventListener("mouseover", function( event ) { event.target.style.backgroundColor = "orange";}, false);
+        element.addEventListener("mouseout", function( event ) {event.target.style.backgroundColor = "#4CAF50";}, false);
+        insertAfter(div, element);
+    }
+    if (value=="another" && !container_8_selected){
+      container_8_selected = true
+      element = document.createElement("input");
+      element.innerHTML = `<input type="text" style="" id="other-name-input-8" name="other-name-input-8" placeholder="New name...">`;
+      element.style.cssText = "margin-left: 10%; width : 80%; margin-top: 5%; placeholder: 'New name'; background-color: #0563af;padding-left: 10px; color: white; border: 0px; margin-left: 0px !important; padding-top: 2%;padding-bottom: 2%;font-size: 1.6vw;"
+      element.className = "other-name-input-8"
+      element.id = "other-name-button-8"
+      insertAfter(div, element);
+    }
+    else{
+      if (container_8_selected){
+        container_8_selected = false
+        let element_edit = document.getElementById("other-name-button-8");
         element_edit.remove();
       }
     }

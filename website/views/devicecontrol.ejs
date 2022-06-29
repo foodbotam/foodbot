@@ -3,8 +3,74 @@
   #navbar-devicecontrol-text {
     color: #00adb5 !important;
   }
+  #edit-container{
+    background-color: lime;
+    border: 0;
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 1%;
+    border-radius: 10px;
+    text-transform: capitalize;
+  }
+  #edit-container:hover{
+    background-color: rgb(38, 116, 38);
+    border: 0;
+  }
+  .container-div {
+    width: 20%;
+    height: 8vw;
+    margin-right: 2.5%;
+    margin-left: 2.5%;
+    background-color: orange;
+    border-radius: 10px;
+    padding: 1%;
+    transition: 0.3s;
+    margin-top: 1%;
+  }
+  .container-image {
+    height: 100%;
+    margin-left: 0%;
+    display: table-cell;
+    float: left;
+  }
+  .container-name{
+    float: right;
+    color: white;
+    font-weight: bold;
+    font-size: 1.9vw;
+  }
+  .container-number{
+    float: right;
+    font-size: 0.9vw;
+    color: white;
+  }
+  .container-div:hover{
+    width: 25%; 
+    background-color: green;
+    cursor: pointer;
+  }
   </style>
     <title>Device control - Foodbot</title>
+    <button type="button" onclick="window.location.href = '/editcontainers'" class="btn btn-primary btn-lg btn-block" onclick="window.location.replace('/devicecontrol')" id="edit-container"><%= translated[language]["edit_containers"] %></button>
 
-<a href="/editcontainers">Edit Containers</a>
+    <div class="container-div">
+      <img class="container-image" src="images/sandwich/bread.png" alt="">
+      <span class="container-name">Pamidor</span>
+      <span class="container-number">Container 1</span>
+      <span id="add_in_sandwich">kaqav</span>
+    </div>
+
+    <h1>grgrgr</h1>
+    <h1>grgrgr</h1>
+    <h1>grgrgr</h1>
+    <h1>grgrgr</h1>
+    <h1>grgrgr</h1>
+    <h1>grgrgr</h1>
+    <h1>grgrgr</h1>
+    <h1>grgrgr</h1>
+    <h1>grgrgr</h1>
+    <h1>grgrgr</h1>
+    <h1>grgrgr</h1>
+    <h1>grgrgr</h1>
+    <h1>grgrgr</h1>
 <%- include('footer.ejs') %>

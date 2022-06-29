@@ -35,7 +35,10 @@
         "cheese": "պանիր",
         "onion": "սոխ",
         "green_pepper": "կանաչ բիբար",
-        "mustard": "գարչիցա"
+        "mustard": "մանանեխ",
+        "salt" : "աղ",
+        "pepper" : "սև բիբար",
+        "edit_containers" : "փոփոխել տարրաները"
     },
     "en": {
         "home": "home",
@@ -73,7 +76,10 @@
         "cheese": "cheese",
         "onion": "onion",
         "green_pepper": "green pepper",
-        "mustard": "mustard"
+        "mustard": "mustard",
+        "salt" : "salt",
+        "pepper" : "black pepper",
+        "edit_containers" : "edit containers"
     },
     "ru": {
         "home": "главная",
@@ -111,6 +117,9 @@
         "cheese": "сыр",
         "onion": "лук",
         "green_pepper": "зеленый перец",
-        "mustard": "горчица"
+        "mustard": "горчица",
+        "salt" : "соль",
+        "pepper" : "черный перец",
+        "edit_containers" : "редактировать контейнеры"
     }
 }

@@ -47,8 +47,8 @@ function make_json_file(name, password) {
 	"container_4" : {"name" : "sausage", "image_path" : "images/sandwich/sausage.png"},
 	"container_5" : {"name" : "ketchup", "image_path" : "images/sandwich/ketchup.png"},
 	"container_6" : {"name" : "mayonnaise", "image_path" : "images/sandwich/mayonnaise.png"},
-	"container_7" : "salt",
-	"container_8" : "pepper"
+	"container_7" : {"name" : "salt", "image_path" : "images/sandwich/salt.png"},
+	"container_8" : {"name" : "pepper", "image_path" : "images/sandwich/pepper.png"}
 }
 	`;
 	let jsonObj = JSON.parse(jsonData);
@@ -56,10 +56,14 @@ function make_json_file(name, password) {
 	fs.writeFileSync(json_file_path, jsonData, "utf8", function (err) { });
 }
 
-function edit_container(container, newname, device_id){
+function edit_container(container, newname, device_id, loggedin){
+	if (!loggedin){
+		res.redirect("/login")
+		return 0
+	}
 	let json_file_path = `public/devices/${md5(device_id)}.json`
 	let json_data =  JSON.parse(fs.readFileSync(json_file_path));
-	if (newname=="cucumber" || newname=="sausage" || newname=="tomato" || newname=="cheese" || newname=="onion" || newname=="green_pepper" || newname=="ketchup" || newname=="mayonnaise" || newname=="mustard") {
+	if (newname=="cucumber" || newname=="sausage" || newname=="tomato" || newname=="cheese" || newname=="onion" || newname=="green_pepper" || newname=="ketchup" || newname=="mayonnaise" || newname=="mustard" || newname=="salt" ||  newname=="pepper") {
 		json_data[container]["name"] = newname
 		json_data[container]["type"] = "special"
 		json_data[container]["image_path"] = `images/sandwich/${newname}.png`
@@ -72,8 +76,11 @@ function edit_container(container, newname, device_id){
 		if(container=="container_1" || container=="container_2" || container=="container_3" || container=="container_4"){
 			json_data[container]["image_path"] = `images/sandwich/anotherfood.png`
 		}
-		if(container=="container_5" || container=="container_6"){
+		else if(container=="container_5" || container=="container_6"){
 			json_data[container]["image_path"] = `images/sandwich/anothersauce.png`
+		}
+		else if(container=="container_7" || container=="container_8"){
+			json_data[container]["image_path"] = `images/sandwich/anotherspice.png`
 		}
 		let jsonContent = JSON.stringify(json_data);
 		fs.writeFile(json_file_path, jsonContent, "utf8", function (err) { });
@@ -104,7 +111,7 @@ app.get("/", (req, res) => {
 
 // Function for rendering login page
 app.get("/login", (req, res) => {
-	res.render("login.ejs", { uorp: true, translated: translated, language: language })
+	res.render("login.ejs", { uorp: true, translated: translated, language: language,error: "noerror" })
 });
 
 // Function which will work when user login
@@ -128,8 +135,7 @@ app.post("/login", (req, res) => {
 			}
 		}
 		else {
-			make_json_file(deviceid, password)
-			res.redirect("/devicecontrol")
+			res.render("login.ejs", { uorp: true, translated: translated, language: language,error: "login_error" })
 		}
 	}
 });
@@ -211,7 +217,7 @@ app.post("/changelanguage/:selected_language", (req, res) => {
 app.post("/changecontainer/:container/:newitem", (req, res) => {
 	let container = req.params.container
 	let newname = req.params.newitem
-	edit_container(container, newname, req.session.deviceid)
+	edit_container(container, newname, req.session.deviceid, req.session.password)
 });
 
 
@@ -251,5 +257,6 @@ app.post("/admin", (req, res) => {
 
 // Running server
 app.listen(port, () => {
-	console.log(`Program started runing. Open  http://localhost:${port}`)
+	console.log(`Running:\t\ttrue`)
+	console.log(`URL:\t\t\thttp://localhost:${port}`)
 })
