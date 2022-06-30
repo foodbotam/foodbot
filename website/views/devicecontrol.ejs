@@ -227,6 +227,8 @@
         <div class="showSandwich"><%= translated[language]["click_to_add"] %></div>
       </div>
 
+      <input type="button" id="back_step" onclick="sandwich_with_everything();" value="<%= translated[language]["sandwich_with_everything"] %>">
+
 
       <div id="elements-place"></div>
       <input type="button" id="back_step" onclick="back_step();" value="<%= translated[language]["one_step_back"] %>">
@@ -295,12 +297,36 @@ function add_element(id)
           }
 function back_step(){
   if (steps.length>1){
-
     steps.pop()
     document.getElementById('elements-place').removeChild(document.getElementById('elements-place').getElementsByTagName('img')[0]);
-    
   }
 }
+
+function add_sandwich(steps) {
+  for (let i = 1; i < steps.length; i++) {
+    add_element(`container-${i}`)
+  }
+  add_element(`container-1`)
+}
+
+
+function sandwich_with_everything() {
+  for (let i = 0; i < steps.length; i++) {
+    try {
+      document.getElementById('elements-place').removeChild(document.getElementById('elements-place').getElementsByTagName('img')[0]);  
+    } catch (error) {
+      console.error(error);
+    }
+    
+  }
+  steps=[]
+  newsteps = [1,2,3,4,5,6,7,8,1]
+  add_sandwich(newsteps);
+}
+
+
+
+
 add_element("container-1")
     </script>
 

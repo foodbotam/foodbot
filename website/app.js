@@ -16,6 +16,7 @@ var admin_loggedin = false;
 var language = "am";
 var translated = JSON.parse(fs.readFileSync("data/translation.json"));
 
+
 // Defining server proparties
 app.set("view engine", "ejs");
 app.use(express.urlencoded());
@@ -101,7 +102,7 @@ function edit_container(container, newname, device_id, loggedin){
 	}
 	let json_file_path = `public/devices/${md5(device_id)}.json`
 	let json_data =  JSON.parse(fs.readFileSync(json_file_path));
-	if (newname=="cucumber" || newname=="sausage" || newname=="tomato" || newname=="cheese" || newname=="onion" || newname=="green_pepper" || newname=="ketchup" || newname=="mayonnaise" || newname=="mustard" || newname=="salt" ||  newname=="pepper") {
+	if (newname=="cucumber" || newname=="sausage" || newname=="tomato" || newname=="cheese" || newname=="onion" || newname=="green_pepper" || newname=="ketchup" || newname=="mayonnaise" || newname=="mustard" || newname=="salt" ||  newname=="pepper" || newname=="red_pepper") {
 		json_data[container]["name"] = newname
 		json_data[container]["type"] = "special"
 		json_data[container]["image_path"] = `images/sandwich/${newname}.png`
@@ -117,11 +118,11 @@ function edit_container(container, newname, device_id, loggedin){
 			json_data[container]["layer_image_path"] = `images/sandwichlayers/anotherfood.png`
 		}
 		else if(container=="container_5" || container=="container_6"){
-			json_data[container]["image_path"] = `images/sandwich/anotherfood.png`
+			json_data[container]["image_path"] = `images/sandwich/anothersauce.png`
 			json_data[container]["layer_image_path"] = `images/sandwichlayers/anothersauce.png`
 		}
 		else if(container=="container_7" || container=="container_8"){
-			json_data[container]["image_path"] = `images/sandwich/anotherfood.png`
+			json_data[container]["image_path"] = `images/sandwich/anotherspice.png`
 			json_data[container]["layer_image_path"] = `images/sandwichlayers/anotherspice.png`
 		}
 		let jsonContent = JSON.stringify(json_data);

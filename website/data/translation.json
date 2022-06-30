@@ -48,7 +48,10 @@
         "send" : "ուղարկել",
         "motivation_text" : "Պետք չէ ժամանակ վատնել սնունդ պատրաստելու վրա: Խնայիր ավելի քան 17 օր ամեն տարի",
         "location" : "Երևան, Հայաստան",
-        "messages" : "հաղորդագրություններ"
+        "messages" : "հաղորդագրություններ",
+        "name" : "անուն",
+        "sandwich_with_everything" : "սենդվիչ ամենինչով",
+        "red_pepper" : "կարմիր բիբար"
     },
     "en": {
         "home": "home",
@@ -99,7 +102,10 @@
         "send" : "send",
         "motivation_text" : "No need to waste time in cooking food at home. Save more than 17 days each year",
         "location" : "Yerevan, Armenia",
-        "messages" : "messages"
+        "messages" : "messages",
+        "name" : "name",
+        "sandwich_with_everything" : "sandwich with everything",
+        "red_pepper" : "red pepper"
     },
     "ru": {
         "home": "главная",
@@ -150,6 +156,9 @@
         "send" : "отправлять",
         "motivation_text" : "Не нужно тратить время на готовку. Экономьте более 17 дней в году",
         "location" : "Ереван, Армения",
-        "messages" : "сообщения"
+        "messages" : "сообщения",
+        "name" : "имя",
+        "sandwich_with_everything" : "бутерброд со всем",
+        "red_pepper" : "красный перец"
     }
 }

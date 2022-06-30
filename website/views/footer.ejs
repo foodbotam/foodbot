@@ -12,6 +12,7 @@
           color: white;
           font-weight: bold;
           text-decoration: none;
+          width: 100%;
         }
         .footer-heading{
           margin-top: 2%;
@@ -36,10 +37,13 @@
           right: 0;
           width: 100%;
         }
+        #footer-div {
+          margin-left: 5%;
+        }
     </style>
     <footer id="footer" class="bg-dark text-center text-white">
       <div class="row justify-content-center" style="width: 100% !important;">
-        <div class="col-md-12 text-center">
+        <div class="col-md-12 text-center" id="footer-div">
           <h2 class="footer-heading"><a href="/" id="footer-text">FOODBOT</a></h2>
           <p class="menu">
             <a class="footer-menu-text" href="/home"><%= translated[language]['home'] %></a>
