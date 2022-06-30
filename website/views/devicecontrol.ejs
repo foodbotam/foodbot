@@ -33,8 +33,8 @@
   }
   .container-number{
     float: right;
-    font-size: 0.5vw;
-    color: yellow;
+    font-size: 1vw;
+    color: white;
     vertical-align: bottom;
   }
   .container-div:hover{
@@ -111,6 +111,10 @@
   display: block;
   color: white
 }
+#back-step{
+  width: 100%;
+  margin-top: 500px !important;
+}
   </style>
   <div style="position: relative; min-height: 100vh;"> 
     <title>Device control - Foodbot</title>
@@ -120,10 +124,10 @@
       <div id="container-1"  class="containerWrapper" onclick="add_element(this.id);">
         <div class="containerItem">
           <div class="containerImage"> 
-            <img src="<%= data["container_1"]["layer_image_path"] %>" alt="">
+            <img src="<%= data["container_1"]["image_path"] %>" alt="">
           </div>
           <div class="containerInfo">
-            <div class="container-name"><%= translated[language][data["container_1"]["name"]] %></div>
+            <div class="container-name"><% if (data["container_1"]["type"]=="other") { %> <%= data["container_1"]["name"] %> <% } else {  %> <%= translated[language][data["container_1"]["name"]] %> <% } %></div>
             <div class="container-number"><%= translated[language]["container"] %> 1</div>          
           </div>
         </div>
@@ -133,10 +137,10 @@
       <div id="container-2" class="containerWrapper"  onclick="add_element(this.id);">
         <div class="containerItem">
           <div class="containerImage"> 
-            <img src="<%= data["container_2"]["layer_image_path"] %>" alt="">
+            <img src="<%= data["container_2"]["image_path"] %>" alt="">
           </div>
           <div class="containerInfo">
-            <div class="container-name"><%= translated[language][data["container_2"]["name"]] %></div>
+            <div class="container-name"><% if (data["container_2"]["type"]=="other") { %> <%= data["container_2"]["name"] %> <% } else {  %> <%= translated[language][data["container_2"]["name"]] %> <% } %></div>
             <div class="container-number"><%= translated[language]["container"] %> 1</div>
           </div>
         </div>
@@ -146,10 +150,10 @@
       <div id="container-3" class="containerWrapper"  onclick="add_element(this.id);">
         <div class="containerItem">
           <div class="containerImage"> 
-            <img src="<%= data["container_3"]["layer_image_path"] %>" alt="">
+            <img src="<%= data["container_3"]["image_path"] %>" alt="">
           </div>
           <div class="containerInfo">
-            <div class="container-name"><%= translated[language][data["container_3"]["name"]] %></div>
+            <div class="container-name"> <% if (data["container_3"]["type"]=="other") { %> <%= data["container_3"]["name"] %> <% } else {  %> <%= translated[language][data["container_3"]["name"]] %> <% } %></div>
             <div class="container-number"><%= translated[language]["container"] %> 1</div>
           </div>
         </div>
@@ -160,17 +164,73 @@
       <div id="container-4" class="containerWrapper"  onclick="add_element(this.id);">
         <div class="containerItem">
           <div class="containerImage"> 
-            <img src="<%= data["container_3"]["layer_image_path"] %>" alt="">
+            <img src="<%= data["container_4"]["image_path"] %>" alt="">
           </div>
           <div class="containerInfo">
-            <div class="container-name"><%= translated[language][data["container_3"]["name"]] %></div>
+            <div class="container-name"><% if (data["container_4"]["type"]=="other") { %> <%= data["container_4"]["name"] %> <% } else {  %> <%= translated[language][data["container_4"]["name"]] %> <% } %></div>
             <div class="container-number"><%= translated[language]["container"] %> 1</div>
           </div>
         </div>
         <div class="showSandwich"><%= translated[language]["click_to_add"] %></div>
       </div>
+
+      <div id="container-5"  class="containerWrapper" onclick="add_element(this.id);">
+        <div class="containerItem">
+          <div class="containerImage"> 
+            <img src="<%= data["container_5"]["image_path"] %>" alt="">
+          </div>
+          <div class="containerInfo">
+            <div class="container-name"><% if (data["container_5"]["type"]=="other") { %> <%= data["container_5"]["name"] %> <% } else {  %> <%= translated[language][data["container_5"]["name"]] %> <% } %></div>
+            <div class="container-number"><%= translated[language]["container"] %> 5</div>          
+          </div>
+        </div>
+        <div class="showSandwich"><%= translated[language]["click_to_add"] %></div>
+      </div>
+
+      <div id="container-6" class="containerWrapper"  onclick="add_element(this.id);">
+        <div class="containerItem">
+          <div class="containerImage"> 
+            <img src="<%= data["container_6"]["image_path"] %>" alt="">
+          </div>
+          <div class="containerInfo">
+            <div class="container-name"><% if (data["container_6"]["type"]=="other") { %> <%= data["container_6"]["name"] %> <% } else {  %> <%= translated[language][data["container_6"]["name"]] %> <% } %></div>
+            <div class="container-number"><%= translated[language]["container"] %> 1</div>
+          </div>
+        </div>
+        <div class="showSandwich"><%= translated[language]["click_to_add"] %></div>
+      </div>
+
+      <div id="container-7" class="containerWrapper"  onclick="add_element(this.id);">
+        <div class="containerItem">
+          <div class="containerImage"> 
+            <img src="<%= data["container_7"]["image_path"] %>" alt="">
+          </div>
+          <div class="containerInfo">
+            <div class="container-name"><% if (data["container_7"]["type"]=="other") { %> <%= data["container_7"]["name"] %> <% } else {  %> <%= translated[language][data["container_7"]["name"]] %> <% } %></div>
+            <div class="container-number"><%= translated[language]["container"] %> 1</div>
+          </div>
+        </div>
+        <div class="showSandwich"><%= translated[language]["click_to_add"] %></div>
+      </div>
+
+
+      <div id="container-8" class="containerWrapper"  onclick="add_element(this.id);">
+        <div class="containerItem">
+          <div class="containerImage"> 
+            <img src="<%= data["container_8"]["image_path"] %>" alt="">
+          </div>
+          <div class="containerInfo">
+            <div class="container-name"><% if (data["container_8"]["type"]=="other") { %> <%= data["container_8"]["name"] %> <% } else {  %> <%= translated[language][data["container_8"]["name"]] %> <% } %></div>
+            <div class="container-number"><%= translated[language]["container"] %> 1</div>
+          </div>
+        </div>
+        <div class="showSandwich"><%= translated[language]["click_to_add"] %></div>
+      </div>
+
+
       <div id="elements-place"></div>
-  </div>.
+      <input type="button" id="back_step" onclick="back_step();" value="<%= translated[language]["one_step_back"] %>">
+  </div>
 
   <div class="footer">
     <%- include('footer.ejs') %>
@@ -178,6 +238,7 @@
   </div>
 
     <script>
+var steps = []
 var div = document.getElementById("elements-place");
 function insertAfter(referenceNode, newNode) {
   referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
@@ -187,23 +248,59 @@ function add_element(id)
   console.log(id);
   let element = document.createElement("img");
   element.style.cssText = `width: 20vw; height: 13vw;`
-  div.prepend(element)
   switch (id) {
     case "container-1":
+      steps.push(1)
       element.src = "<%= data['container_1']['layer_image_path'] %>"
       break;
-    
+      
     case "container-2":
+      steps.push(2)
       element.src = "<%= data['container_2']['layer_image_path'] %>"
       break;
+      
+      case "container-3":
+        steps.push(3)
+        element.src = "<%= data['container_3']['layer_image_path'] %>"
+        break;
+        
+      case "container-4":
+        steps.push(4)
+        element.src = "<%= data['container_4']['layer_image_path'] %>"
+        break;
+    
+      case "container-5":
+        steps.push(5)
+        element.src = "<%= data['container_5']['layer_image_path'] %>"
+        break;
+      case "container-6":
+        steps.push(6)
+        element.src = "<%= data['container_6']['layer_image_path'] %>"
+        break;
+      case "container-7":
+        steps.push(7)
+        element.src = "<%= data['container_7']['layer_image_path'] %>"
+        break;
 
-    case "container-3":
-      element.src = "<%= data['container_3']['layer_image_path'] %>"
-      break;
-  
-    default:
-      break;
+      case "container-8":
+        steps.push(8)
+        element.src = "<%= data['container_8']['layer_image_path'] %>"
+        break;
+      
+      default:
+        break;
+        }
+            console.log(steps);
+            div.prepend(element)
+          }
+function back_step(){
+  if (steps.length>1){
+
+    steps.pop()
+    document.getElementById('elements-place').removeChild(document.getElementById('elements-place').getElementsByTagName('img')[0]);
+    
   }
 }
+add_element("container-1")
     </script>
 

@@ -39,7 +39,16 @@
         "salt" : "աղ",
         "pepper" : "սև բիբար",
         "edit_containers" : "փոփոխել տարրաները",
-        "click_to_add" : "սեղմեք ավելացնելու համար"
+        "click_to_add" : "սեղմեք ավելացնելու համար",
+        "one_step_back" : "մեկ քայլ հետ",
+        "username" : "մուտքանուն",
+        "email" : "էլեկտրոնային հասցե",
+        "phone" : "հեռախոսահամար",
+        "message" : "հաղորդագրություն",
+        "send" : "ուղարկել",
+        "motivation_text" : "Պետք չէ ժամանակ վատնել սնունդ պատրաստելու վրա: Խնայիր ավելի քան 17 օր ամեն տարի",
+        "location" : "Երևան, Հայաստան",
+        "messages" : "հաղորդագրություններ"
     },
     "en": {
         "home": "home",
@@ -81,7 +90,16 @@
         "salt" : "salt",
         "pepper" : "black pepper",
         "edit_containers" : "edit containers",
-        "click_to_add" : "click to add"
+        "click_to_add" : "click to add",
+        "one_step_back" : "one step back",
+        "username" : "username",
+        "email" : "email",
+        "phone" : "phone",
+        "message" : "message",
+        "send" : "send",
+        "motivation_text" : "No need to waste time in cooking food at home. Save more than 17 days each year",
+        "location" : "Yerevan, Armenia",
+        "messages" : "messages"
     },
     "ru": {
         "home": "главная",
@@ -95,7 +113,7 @@
         "password": "пароль",
         "login_error": "Неверное имя устройства или пароль.",
         "aboutus": "о нас",
-        "contactus": "связь",
+        "contactus": "свяжитесь с нами",
         "help": "помощь",
         "update": "обновить",
         "bread": "хлеб",
@@ -123,6 +141,15 @@
         "salt" : "соль",
         "pepper" : "черный перец",
         "edit_containers" : "редактировать контейнеры",
-        "click_to_add" : "нажмите, чтобы добавить"
+        "click_to_add" : "нажмите, чтобы добавить",
+        "one_step_back" : "один шаг назад",
+        "username" : "имя",
+        "email" : "Эл. адрес",
+        "phone" : "телефон",
+        "message" : "сообщение",
+        "send" : "отправлять",
+        "motivation_text" : "Не нужно тратить время на готовку. Экономьте более 17 дней в году",
+        "location" : "Ереван, Армения",
+        "messages" : "сообщения"
     }
 }

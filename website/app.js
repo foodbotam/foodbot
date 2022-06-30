@@ -14,7 +14,7 @@ const ap = "553225726ea919e57e3d61bcaf4a1b24"
 
 var admin_loggedin = false;
 var language = "am";
-var translated = JSON.parse(fs.readFileSync("translation.json"));
+var translated = JSON.parse(fs.readFileSync("data/translation.json"));
 
 // Defining server proparties
 app.set("view engine", "ejs");
@@ -27,6 +27,43 @@ app.use(session({
 }));
 app.use(express.static(__dirname + '/public'));
 
+// Function which will add new message from contact us page
+function add_message(name, email, phone, message){
+	let ts = Date.now();
+	let json_file_path = `data/messages.json`
+	let json_data =  JSON.parse(fs.readFileSync(json_file_path));
+	let date_ob = new Date(ts);
+	let milliseconds = date_ob.getMilliseconds();
+	let seconds = date_ob.getSeconds();
+	let minutes = date_ob.getMinutes();
+	let hours = date_ob.getHours();
+	let date = date_ob.getDate();
+	let month = date_ob.getMonth() + 1;
+	let year = date_ob.getFullYear();
+	let full_date = year + "_" + month + "_" + date + "_" + hours + "_" + minutes + "_" + seconds + "_" + milliseconds
+	json_data[full_date] = {}
+	json_data[full_date]["surname"] = name
+	json_data[full_date]["email"] = email
+	json_data[full_date]["phone"] = phone
+	json_data[full_date]["message"] = message
+	let jsonContent = JSON.stringify(json_data);
+	fs.writeFile(json_file_path, jsonContent, "utf8", function (err) { });
+	console.log(full_date);
+}
+
+// Function which will return messages
+function get_messages(astext=true) {
+	let ts = Date.now();
+	let json_file_path = `data/messages.json`
+	let json_data = fs.readFileSync(json_file_path);
+	if (astext) {
+		return json_data
+	}
+	else{
+		json_data = JSON.parse(json_data)
+		return json_data
+	}
+}
 
 // Function which will return true if file exist or false if not exist
 function check_file_exist(name) {
@@ -41,6 +78,7 @@ function make_json_file(name, password) {
 {
 	"password" : "${md5(password)}",
 	"type" : "sandwich",
+	"status" : "not working",
 	"container_1" : {"name" : "bread" , "image_path" : "images/sandwich/bread.png", "layer_image_path" : "images/sandwichlayers/bread.png"},
 	"container_2" : {"name" : "tomato", "image_path" : "images/sandwich/tomato.png", "layer_image_path" : "images/sandwichlayers/tomato.png"},
 	"container_3" : {"name" : "cucumber", "image_path" : "images/sandwich/cucumber.png", "layer_image_path" : "images/sandwichlayers/cucumber.png"},
@@ -194,6 +232,15 @@ app.get("/products", (req, res) => {
 	res.render("products.ejs", { uorp: req.session.loggedin, language: language, translated: translated })
 });
 
+// Function for showing contact us page 
+app.get("/contactus", (req, res) => {
+	res.render("contactus.ejs", { uorp: req.session.loggedin, language: language, translated: translated })
+});
+app.post("/contactus", (req, res) => {
+	add_message(req.body.name, req.body.emails, req.body.phone, req.body.message);
+	res.redirect("/home")
+});
+
 // If you post on this url you will change language
 app.get("/changelanguage", (req, res) => {
 	res.redirect("/home")
@@ -229,7 +276,7 @@ app.post("/changecontainer/:container/:newitem", (req, res) => {
 // Function for opening admin page
 app.get("/admin", (req, res) => {
 	if (admin_loggedin){
-		res.render("admin.ejs", {uorp: admin_loggedin, translated: translated, language: language, error: "noerror"})
+		res.render("admin.ejs", {uorp: admin_loggedin, translated: translated, language: language, error: "noerror", messages: get_messages(true)})
 	}
 	else{
 		res.render("adminlogin.ejs", {uorp: admin_loggedin, translated: translated, language: language, error: "noerror"})
@@ -242,7 +289,8 @@ app.post("/admin", (req, res) => {
 	if (req.body.newdevicename) {
 		make_json_file(req.body.newdevicename, req.body.newdevicepassword)
 		if (admin_loggedin){
-			res.render("admin.ejs", {uorp: admin_loggedin, translated: translated, language: language, error: "success_device_add"})
+			console.log(get_messages(true));
+			res.render("admin.ejs", {uorp: admin_loggedin, translated: translated, language: language, error: "success_device_add", messages: get_messages(true)})
 		}
 		else{
 			res.render("adminlogin.ejs", {uorp: admin_loggedin, translated: translated, language: language, error: "noerror"})
