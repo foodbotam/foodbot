@@ -333,9 +333,7 @@ void loop() {
 //  Serial.println(container_2_status);
 //  Serial.println("Check finished" );
 //  delay(200);
-
-    fill_sauce(6);
     delay(2000);
-    cut_food(3);
+    cut_food(2);
     delay(2000);
 }

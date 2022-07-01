@@ -112,9 +112,26 @@
   color: white
 }
 #back-step{
-  width: 100%;
-  margin-top: 500px !important;
+  width: 10%;
+  font-size: 5vw !important;
 }
+.default_sandwiches{
+  background-color: green;
+  border: 0px;
+  margin: 2.5%;
+  color: white;
+  text-transform: capitalize;
+  font-weight: bold;
+  border-radius: 20px;
+  width: 20%;
+  padding: 1%;
+  font-size: 1.2vw;
+}
+@media only screen and (max-width: 1000px) {
+            #elements-place{
+            width: 80%;
+            }
+          }
   </style>
   <div style="position: relative; min-height: 100vh;"> 
     <title>Device control - Foodbot</title>
@@ -227,11 +244,14 @@
         <div class="showSandwich"><%= translated[language]["click_to_add"] %></div>
       </div>
 
-      <input type="button" id="back_step" onclick="sandwich_with_everything();" value="<%= translated[language]["sandwich_with_everything"] %>">
-
+      <input class="default_sandwiches" type="button" onclick="sandwich_with_everything();" value="<%= translated[language]["sandwich_with_everything"] %>">
+      <input class="default_sandwiches" type="button" onclick="sandwich_without_sauces();" value="<%= translated[language]["sandwich_without_sauces"] %>">
+      <input class="default_sandwiches" type="button" onclick="sandwich_without_spices();" value="<%= translated[language]["sandwich_without_spices"] %>">
+      <input class="default_sandwiches" type="button" onclick="sandwich_without_sauces_and_spices();" value="<%= translated[language]["sandwich_without_sauces_and_spices"] %>">
+      <input type="button" id="back_step" onclick="back_step();" value="<%= translated[language]["one_step_back"] %>">
 
       <div id="elements-place"></div>
-      <input type="button" id="back_step" onclick="back_step();" value="<%= translated[language]["one_step_back"] %>">
+
   </div>
 
   <div class="footer">
@@ -303,14 +323,12 @@ function back_step(){
 }
 
 function add_sandwich(steps) {
-  for (let i = 1; i < steps.length; i++) {
-    add_element(`container-${i}`)
+  for (let i = 0; i < steps.length; i++) {
+    add_element(`container-${steps[i]}`)
   }
-  add_element(`container-1`)
 }
 
-
-function sandwich_with_everything() {
+function delate_sandwich(){
   for (let i = 0; i < steps.length; i++) {
     try {
       document.getElementById('elements-place').removeChild(document.getElementById('elements-place').getElementsByTagName('img')[0]);  
@@ -320,7 +338,25 @@ function sandwich_with_everything() {
     
   }
   steps=[]
+}
+function sandwich_with_everything() {
+  delate_sandwich();
   newsteps = [1,2,3,4,5,6,7,8,1]
+  add_sandwich(newsteps);
+}
+function sandwich_without_sauces() {
+  delate_sandwich();
+  newsteps = [1,2,3,4,7,8,1]
+  add_sandwich(newsteps);
+}
+function sandwich_without_spices() {
+  delate_sandwich();
+  newsteps = [1,2,3,4,5,6,1]
+  add_sandwich(newsteps);
+}
+function sandwich_without_sauces_and_spices() {
+  delate_sandwich();
+  newsteps = [1,2,3,4,1]
   add_sandwich(newsteps);
 }
 

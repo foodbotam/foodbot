@@ -2,69 +2,116 @@
 <html lang="en">
 <head>
     <style>
-        body{
-            background-color: #78aecb;
-            text-align: center;
-        }
-        #login_div {
-            text-align: center;
-            width: 30%;
-            position: absolute;
-            left: 35%;
-            top: 40%;
-            height: auto;
-            background-color: #407690;
-            border-radius: 5px;
-        }
-        h1 {
-            color: white;
-            font-family:sans-serif; 
-            font-size: 1.5vw;
-            text-transform: capitalize;
-        }
-        .input{
-            border: 0px;
-            background-color: #78aecb !important;
-            width: 80%;
-            margin-top: 2%;
-            margin-bottom: 2%;
-            font-size: 1.2vw;
-            padding: 2% 2% 2% 5%;
-            border-radius: 5px;
-            color: white;
-        }
-        #button{
-            background-color: #78aecb;
-            border: 0px;
-            color: white;
-            font-weight: bold;
-            font-size: 1.3vw;
-            border-radius: 5px;
-            margin-top: 3%;
-            margin-bottom: 5%;
-            width: 87%;
-            padding-top: 2%;
-            padding-bottom: 2%;
-        }
-        #button:hover{
-            width: 90%;
-            cursor: pointer;
-        }
-        @media only screen and (max-width: 1000px) {
-            #login_div {
-                width: 80%;
-                left: 10%;
-            }
-            h1 {
-                font-size: 2em;
-            }
-            .input{
-                font-size: 1.4em;
-            }
-            #button{
-                font-size: 1.4em;
-            }
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins',sans-serif;
+}
+body{
+  background: #fff;
+  overflow: hidden;
+}
+::selection{
+  background: rgba(26,188,156,0.3);
+}
+.container{
+  max-width: 440px;
+  padding: 0 20px;
+  margin: 250px auto;
+}
+.wrapper{
+  width: 100%;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 4px 10px 1px rgba(26,188,156,0.3) ;
+}
+.wrapper .title{
+  height: 90px;
+  background: rgb(84, 131, 219);
+  border-radius: 5px 5px 0 0;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrapper form{
+  padding: 30px 25px 25px 25px;
+}
+.wrapper form .row{
+  height: 45px;
+  margin-bottom: 15px;
+  position: relative;
+}
+.wrapper form .row input{
+  height: 100%;
+  width: 100%;
+  outline: none;
+  padding-left: 60px;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+form .row input:focus{
+  border-color: rgb(84, 131, 219);
+  box-shadow: inset 0px 0px 2px 2px rgba(26,188,156,0.25);
+}
+form .row input::placeholder{
+  color: #999;
+}
+.wrapper form .row i{
+  position: absolute;
+  width: 47px;
+  height: 100%;
+  color: #fff;
+  font-size: 18px;
+  background: rgb(84, 131, 219);
+  border: 1px solid rgb(84, 131, 219);
+  border-radius: 5px 0 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrapper form .pass{
+  margin: -8px 0 20px 0;
+}
+.wrapper form .pass a{
+  color: rgb(84, 131, 219);
+  font-size: 17px;
+  text-decoration: none;
+}
+.wrapper form .pass a:hover{
+  text-decoration: underline;
+}
+.wrapper form .button input{
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+  padding-left: 0px;
+  background: rgb(84, 131, 219);
+  border: 1px solid rgb(84, 131, 219);
+  cursor: pointer;
+}
+form .button input:hover{
+  background: rgb(84, 131, 219);
+}
+.wrapper form .signup-link{
+  text-align: center;
+  margin-top: 20px;
+  font-size: 17px;
+}
+.wrapper form .signup-link a{
+  color: rgb(84, 131, 219);
+  text-decoration: none;
+}
+form .signup-link a:hover{
+  text-decoration: underline;
+}
+
     </style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -73,16 +120,32 @@
   <title>Login - Admin</title>
 </head>
 <body>
-    <form action="/admin" method="POST">
-        <div id="login_div">
-            <h1><%= translated[language]['admin_login'] %></h1>
-            <input type="text" id="username" placeholder="<%= translated[language]['admin_username'] %>" class="input" name="adminusername" id="">
-            <input type="password" id="password" placeholder="<%= translated[language]['admin_password'] %>" class="input" name="adminpassword" id="">
-            <% if (error=="admin_login_error") { %>
-                <br><h1 style="color: yellow; float: left; margin-left: 7%; text-transform: none; font-size: 1vw; "><%= translated[language][error] %></h1>
-            <% } %>
-            <button type="submit" id="button"><%= translated[language]['login'] %></button>
-        </div>  
-    </form>
+
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <div class="container">
+      <div class="wrapper">
+        <div class="title"><span style="text-transform: capitalize;"><%= translated[language]['login'] %></span></div>
+        <form action="/admin" method="POST">
+          <div class="row">
+            <i class="fas fa-user"></i>
+            <input type="text" id="username" name="adminusername" placeholder="<%= translated[language]['username'] %>" required>
+          </div>
+          <div class="row">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="password"  name="adminpassword"  placeholder="<%= translated[language]['password'] %>" required>
+          </div>
+          <% if (error=="admin_login_error") { %>
+            <br><h1 style="color: yellow; float: left; margin-left: 7%; text-transform: none; font-size: 1vw; "><%= translated[language][error] %></h1>
+        <% } %>
+          <div class="pass"></div>
+          <div class="row button">
+            <input type="submit" style="text-transform: capitalize;" value="<%= translated[language]['login'] %>">
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+
 </body>
 </html>

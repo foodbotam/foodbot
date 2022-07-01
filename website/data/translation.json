@@ -51,7 +51,10 @@
         "messages" : "հաղորդագրություններ",
         "name" : "անուն",
         "sandwich_with_everything" : "սենդվիչ ամենինչով",
-        "red_pepper" : "կարմիր բիբար"
+        "red_pepper" : "կարմիր բիբար",
+        "sandwich_without_sauces" : "սենդվիչ առանց սոուսների",
+        "sandwich_without_spices" : "սենդվիչ առանց համեմունքների",
+        "sandwich_without_sauces_and_spices" : "սենդվիչ առանց սոուսների և համեմունքների"
     },
     "en": {
         "home": "home",
@@ -105,7 +108,10 @@
         "messages" : "messages",
         "name" : "name",
         "sandwich_with_everything" : "sandwich with everything",
-        "red_pepper" : "red pepper"
+        "red_pepper" : "red pepper",
+        "sandwich_without_sauces" : "sandwich without sauces",
+        "sandwich_without_spices" : "sandwich without spices",
+        "sandwich_without_sauces_and_spices" : "sandwich without sauces and spices"
     },
     "ru": {
         "home": "главная",
@@ -159,6 +165,9 @@
         "messages" : "сообщения",
         "name" : "имя",
         "sandwich_with_everything" : "бутерброд со всем",
-        "red_pepper" : "красный перец"
+        "red_pepper" : "красный перец",
+        "sandwich_without_sauces" : "бутерброд без соусов",
+        "sandwich_without_spices" : "бутерброд без специй",
+        "sandwich_without_sauces_and_spices" : "бутерброд без соусов и специй"
     }
 }
