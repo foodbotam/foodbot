@@ -1,4 +1,4 @@
 #!/bin/bash
 git add . && git commit -m "new update"
-echo "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"
+echo "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"
 git push
