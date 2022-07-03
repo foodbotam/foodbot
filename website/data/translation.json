@@ -54,7 +54,9 @@
         "red_pepper" : "կարմիր բիբար",
         "sandwich_without_sauces" : "սենդվիչ առանց սոուսների",
         "sandwich_without_spices" : "սենդվիչ առանց համեմունքների",
-        "sandwich_without_sauces_and_spices" : "սենդվիչ առանց սոուսների և համեմունքների"
+        "sandwich_without_sauces_and_spices" : "սենդվիչ առանց սոուսների և համեմունքների",
+        "make" : "պատրաստել",
+        "order_for_later" : "պատվիրել ավելի ուշ"
     },
     "en": {
         "home": "home",
@@ -111,7 +113,9 @@
         "red_pepper" : "red pepper",
         "sandwich_without_sauces" : "sandwich without sauces",
         "sandwich_without_spices" : "sandwich without spices",
-        "sandwich_without_sauces_and_spices" : "sandwich without sauces and spices"
+        "sandwich_without_sauces_and_spices" : "sandwich without sauces and spices",
+        "make" : "make",
+        "order_for_later" : "order for later"
     },
     "ru": {
         "home": "главная",
@@ -168,6 +172,8 @@
         "red_pepper" : "красный перец",
         "sandwich_without_sauces" : "бутерброд без соусов",
         "sandwich_without_spices" : "бутерброд без специй",
-        "sandwich_without_sauces_and_spices" : "бутерброд без соусов и специй"
+        "sandwich_without_sauces_and_spices" : "бутерброд без соусов и специй",
+        "make" : "готовить",
+        "order_for_later" : "заказать на потом"
     }
 }

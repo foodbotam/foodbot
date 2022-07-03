@@ -10,7 +10,7 @@ const app = express();
 const port = 3000;
 const au = "d6ca3fd0c3a3b462ff2b83436dda495e"
 const ap = "553225726ea919e57e3d61bcaf4a1b24"
-
+const mqtt_broker = require("./mqttbroker.js");
 
 var admin_loggedin = false;
 var language = "am";
@@ -29,10 +29,10 @@ app.use(session({
 app.use(express.static(__dirname + '/public'));
 
 // Function which will add new message from contact us page
-function add_message(name, email, phone, message){
+function add_message(name, email, phone, message) {
 	let ts = Date.now();
 	let json_file_path = `data/messages.json`
-	let json_data =  JSON.parse(fs.readFileSync(json_file_path));
+	let json_data = JSON.parse(fs.readFileSync(json_file_path));
 	let date_ob = new Date(ts);
 	let milliseconds = date_ob.getMilliseconds();
 	let seconds = date_ob.getSeconds();
@@ -53,14 +53,14 @@ function add_message(name, email, phone, message){
 }
 
 // Function which will return messages
-function get_messages(astext=true) {
+function get_messages(astext = true) {
 	let ts = Date.now();
 	let json_file_path = `data/messages.json`
 	let json_data = fs.readFileSync(json_file_path);
 	if (astext) {
 		return json_data
 	}
-	else{
+	else {
 		json_data = JSON.parse(json_data)
 		return json_data
 	}
@@ -68,13 +68,13 @@ function get_messages(astext=true) {
 
 // Function which will return true if file exist or false if not exist
 function check_file_exist(name) {
-	const file_path = path.join(__dirname, `public/devices/${md5(name)}.json`)
+	const file_path = path.join(__dirname, `devices/${md5(name)}.json`)
 	return fs.existsSync(file_path)
 }
 
 // Function which will make file by given name ading .json at the end
 function make_json_file(name, password) {
-	json_file_path = `public/devices/${md5(name)}.json`
+	json_file_path = `devices/${md5(name)}.json`
 	let jsonData = `
 {
 	"password" : "${md5(password)}",
@@ -95,14 +95,14 @@ function make_json_file(name, password) {
 	fs.writeFileSync(json_file_path, jsonData, "utf8", function (err) { });
 }
 
-function edit_container(container, newname, device_id, loggedin){
-	if (!loggedin){
+function edit_container(container, newname, device_id, loggedin) {
+	if (!loggedin) {
 		res.redirect("/login")
 		return 0
 	}
-	let json_file_path = `public/devices/${md5(device_id)}.json`
-	let json_data =  JSON.parse(fs.readFileSync(json_file_path));
-	if (newname=="cucumber" || newname=="sausage" || newname=="tomato" || newname=="cheese" || newname=="onion" || newname=="green_pepper" || newname=="ketchup" || newname=="mayonnaise" || newname=="mustard" || newname=="salt" ||  newname=="pepper" || newname=="red_pepper") {
+	let json_file_path = `devices/${md5(device_id)}.json`
+	let json_data = JSON.parse(fs.readFileSync(json_file_path));
+	if (newname == "cucumber" || newname == "sausage" || newname == "tomato" || newname == "cheese" || newname == "onion" || newname == "green_pepper" || newname == "ketchup" || newname == "mayonnaise" || newname == "mustard" || newname == "salt" || newname == "pepper" || newname == "red_pepper") {
 		json_data[container]["name"] = newname
 		json_data[container]["type"] = "special"
 		json_data[container]["image_path"] = `images/sandwich/${newname}.png`
@@ -113,15 +113,15 @@ function edit_container(container, newname, device_id, loggedin){
 	else {
 		json_data[container]["name"] = newname
 		json_data[container]["type"] = "other"
-		if(container=="container_1" || container=="container_2" || container=="container_3" || container=="container_4"){
+		if (container == "container_1" || container == "container_2" || container == "container_3" || container == "container_4") {
 			json_data[container]["image_path"] = `images/sandwich/anotherfood.png`
 			json_data[container]["layer_image_path"] = `images/sandwichlayers/anotherfood.png`
 		}
-		else if(container=="container_5" || container=="container_6"){
+		else if (container == "container_5" || container == "container_6") {
 			json_data[container]["image_path"] = `images/sandwich/anothersauce.png`
 			json_data[container]["layer_image_path"] = `images/sandwichlayers/anothersauce.png`
 		}
-		else if(container=="container_7" || container=="container_8"){
+		else if (container == "container_7" || container == "container_8") {
 			json_data[container]["image_path"] = `images/sandwich/anotherspice.png`
 			json_data[container]["layer_image_path"] = `images/sandwichlayers/anotherspice.png`
 		}
@@ -131,18 +131,42 @@ function edit_container(container, newname, device_id, loggedin){
 }
 
 // Function for reading json file 
-function read_device_info(name){
-	let json_file_path = `public/devices/${md5(name)}.json`
-	let json_data =  JSON.parse(fs.readFileSync(json_file_path));
+function read_device_info(name) {
+	let json_file_path = `devices/${md5(name)}.json`
+	let json_data = JSON.parse(fs.readFileSync(json_file_path));
 	return json_data
 }
 
 // Function which will check if password is true	
 function check_password(name, password) {
-	let json_file_path = `public/devices/${md5(name)}.json`
-	let json_data =  JSON.parse(fs.readFileSync(json_file_path));
+	let json_file_path = `devices/${md5(name)}.json`
+	let json_data = JSON.parse(fs.readFileSync(json_file_path));
 	let real_password = json_data["password"]
 	return real_password == md5(password)
+}
+
+// Function for sending sandwich order
+function make_sandwich(steps,device_id,device_password) {
+	console.log(steps);
+	console.log(device_id);
+	console.log(device_password);
+	console.log(steps);
+	steps_to_send = ""
+	for (let i = 0; i < steps.length; i++) {
+		steps_to_send += steps[i]
+		steps_to_send += " "
+	}
+	console.log(steps_to_send);
+	let mqtt = require('mqtt')
+	let client = mqtt.connect('mqtt://localhost:1884')
+	let topic = md5(device_id+device_password)
+	let message = steps_to_send
+
+	client.on('connect', () => {
+		client.publish(topic, message)
+		console.log(`[Order completed on topic ${topic} for ${device_id} device]`, message)
+	})
+	console.log("bareeev");
 }
 
 
@@ -154,7 +178,7 @@ app.get("/", (req, res) => {
 
 // Function for rendering login page
 app.get("/login", (req, res) => {
-	res.render("login.ejs", { uorp: true, translated: translated, language: language,error: "noerror" })
+	res.render("login.ejs", { uorp: true, translated: translated, language: language, error: "noerror" })
 });
 
 // Function which will work when user login
@@ -172,14 +196,33 @@ app.post("/login", (req, res) => {
 				req.session.password = password;
 				res.redirect("/devicecontrol")
 			}
-			else
-			{
-				res.render("login.ejs", { uorp: false , translated: translated, language: language, error: "noerror"})
+			else {
+				res.render("login.ejs", { uorp: false, translated: translated, language: language, error: "noerror" })
 			}
 		}
 		else {
-			res.render("login.ejs", { uorp: true, translated: translated, language: language,error: "login_error" })
+			res.render("login.ejs", { uorp: true, translated: translated, language: language, error: "login_error" })
 		}
+	}
+});
+
+// Function for login via QR code
+app.get("/loginviaqr/:deviceid/:password", (req, res) => {
+	let deviceid = req.params.deviceid
+	let password = req.params.password
+	if (check_file_exist(deviceid)) {
+		if (check_password(deviceid, password)) {
+			req.session.loggedin = true;
+			req.session.deviceid = deviceid;
+			req.session.password = password;
+			res.redirect("/devicecontrol")
+		}
+		else {
+			res.render("login.ejs", { uorp: false, translated: translated, language: language, error: "noerror" })
+		}
+	}
+	else {
+		res.render("login.ejs", { uorp: true, translated: translated, language: language, error: "login_error" })
 	}
 });
 
@@ -195,20 +238,20 @@ app.get("/home", (req, res) => {
 
 // Function for device control page
 app.get("/devicecontrol", (req, res) => {
-	if (req.session.loggedin){
-		res.render("devicecontrol.ejs", { uorp: req.session.loggedin, data: read_device_info(req.session.deviceid), language: language, translated: translated})
+	if (req.session.loggedin) {
+		res.render("devicecontrol.ejs", { uorp: req.session.loggedin, data: read_device_info(req.session.deviceid), language: language, translated: translated })
 	}
-	else{
+	else {
 		res.redirect("/login")
 	}
 });
 
 // Function for device control page
 app.get("/editcontainers", (req, res) => {
-	if (req.session.loggedin){
-		res.render("editcontainers.ejs", { uorp: req.session.loggedin, data: read_device_info(req.session.deviceid), language: language, translated: translated})
+	if (req.session.loggedin) {
+		res.render("editcontainers.ejs", { uorp: req.session.loggedin, data: read_device_info(req.session.deviceid), language: language, translated: translated })
 	}
-	else{
+	else {
 		res.redirect("/login")
 	}
 });
@@ -225,7 +268,7 @@ app.get("/logout", (req, res) => {
 app.get("/adminlogout", (req, res) => {
 	req.session.admin_loggedin = false
 	admin_loggedin = false
-	res.redirect("/home")
+	res.redirect("/admin")
 });
 
 // Function for showing products mady by foodbot 
@@ -250,37 +293,45 @@ app.get("/changelanguage", (req, res) => {
 
 app.post("/changelanguage/:selected_language", (req, res) => {
 	language = req.params.selected_language
-	if (language=="armenian")
-	{
+	if (language == "armenian") {
 		language = "am"
 	}
-	else if (language=="english")
-	{
+	else if (language == "english") {
 		language = "en"
 	}
-	else if (language=="russian")
-	{
+	else if (language == "russian") {
 		language = "ru"
 	}
 });
 
 
-
+// Function for changing conainer
 app.post("/changecontainer/:container/:newitem", (req, res) => {
 	let container = req.params.container
 	let newname = req.params.newitem
 	edit_container(container, newname, req.session.deviceid, req.session.password)
 });
 
-
+// Function for ordering sandwich
+app.get("/ordersandwich/:steps/:time", (req, res) => {
+	string_steps = req.params.steps
+	steps = []
+	for (let i = 0; i < string_steps.length; i++) {
+		steps[i] = string_steps.charCodeAt(i)
+	}
+	if (req.params.time == "now"){
+		make_sandwich(steps,req.session.deviceid,req.session.password)
+	}
+	res.redirect("/home")
+});
 
 // Function for opening admin page
 app.get("/admin", (req, res) => {
-	if (admin_loggedin){
-		res.render("admin.ejs", {uorp: admin_loggedin, translated: translated, language: language, error: "noerror", messages: get_messages(true)})
+	if (admin_loggedin) {
+		res.render("admin.ejs", { uorp: admin_loggedin, translated: translated, language: language, error: "noerror", messages: get_messages(true) })
 	}
-	else{
-		res.render("adminlogin.ejs", {uorp: admin_loggedin, translated: translated, language: language, error: "noerror"})
+	else {
+		res.render("adminlogin.ejs", { uorp: admin_loggedin, translated: translated, language: language, error: "noerror" })
 	}
 }
 );
@@ -289,21 +340,21 @@ app.get("/admin", (req, res) => {
 app.post("/admin", (req, res) => {
 	if (req.body.newdevicename) {
 		make_json_file(req.body.newdevicename, req.body.newdevicepassword)
-		if (admin_loggedin){
+		if (admin_loggedin) {
 			console.log(get_messages(true));
-			res.render("admin.ejs", {uorp: admin_loggedin, translated: translated, language: language, error: "success_device_add", messages: get_messages(true)})
+			res.render("admin.ejs", { uorp: admin_loggedin, translated: translated, language: language, error: "success_device_add", messages: get_messages(true) })
 		}
-		else{
-			res.render("adminlogin.ejs", {uorp: admin_loggedin, translated: translated, language: language, error: "noerror"})
+		else {
+			res.render("adminlogin.ejs", { uorp: admin_loggedin, translated: translated, language: language, error: "noerror" })
 		}
 	}
-	else{
-		if (md5(req.body.adminusername)==au && md5(req.body.adminpassword)==ap){
+	else {
+		if (md5(req.body.adminusername) == au && md5(req.body.adminpassword) == ap) {
 			admin_loggedin = true;
 			res.redirect("/admin")
 		}
-		else{
-			res.render("adminlogin.ejs",{uorp : false, translated: translated, language: language, error: "admin_login_error"})
+		else {
+			res.render("adminlogin.ejs", { uorp: false, translated: translated, language: language, error: "admin_login_error" })
 		}
 	}
 });

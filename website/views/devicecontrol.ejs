@@ -1,10 +1,13 @@
 <%- include('header.ejs') %>
   <style>
-  #navbar-devicecontrol-text {
+    body{
+      background-color: rgb(255, 255, 255);
+    }
+  #navbar-devicecontrol-text {  
     color: #00adb5 !important;
   }
   #edit-container{
-    background-color: lime;
+    background-color: orange;
     border: 0;
     width: 90%;
     margin-left: 5%;
@@ -13,8 +16,17 @@
     text-transform: capitalize;
   }
   #edit-container:hover{
-    background-color: rgb(38, 116, 38);
+    background-color: orangered;
     border: 0;
+  }
+  #back_step:hover{
+    background-color: orangered !important;
+  }
+  #order_sandwich:hover{
+    background-color: #17a008 !important;
+  }
+  #order_for_later:hover{
+    background-color: rgb(185, 0, 145);
   }
  
   .container-image {
@@ -24,12 +36,7 @@
     float: left;
   }
 
-  .container-number{
-    float: right;
-    font-size: 1vw;
-    color: white;
-    vertical-align: bottom;
-  }
+
   .container-div:hover{
     height: 20vh; 
     background-color: green;
@@ -99,15 +106,21 @@
     text-transform: capitalize;
     vertical-align: bottom;
   }
+  .container-number{
+    float: right;
+    font-size: 1vw;
+    color: white;
+    vertical-align: bottom;
+  }
 .showSandwich {
   display: none;
   color: white;
   font-size: 16px;
   text-align: center;
-  height: 3s vw;
+  height: 3vw;
 
 }
-
+@media only screen and (min-width: 600px) {
 .containerWrapper:hover{
   background: green;
   height: 13vw
@@ -116,6 +129,9 @@
   display: block !important;
   color: white
 }
+}
+
+
 #back-step{
   width: 10%;
   font-size: 5vw !important;
@@ -130,7 +146,7 @@
   margin-bottom: 50px;
 }
 .default_sandwiches{
-  background: goldenrod;
+    background: goldenrod;
     width: 20.5vw;
     height: 100px;
     border: 0;
@@ -142,21 +158,87 @@
     color: white;
     font-size: calc(14px + .3vw);
     margin: 0;
+    transition: 0.3s;
 }
-#back_step{
+.command-buttons{
   width: 200px;
   height: 50px;
   border-radius: 6px;
   text-transform: uppercase;
   margin: 0;
   border: 0;
+  margin-right: 15px;
   background-color: #0080ff;
   color:white
 }
+.default_sandwiches:hover{
+    background-color: green;
+}
 @media only screen and (max-width: 1000px) {
-            #elements-place{
-            width: 80%;
+   #elements-place{
+            width: 60vw;
   }
+  #element-picture{
+    width: 60vw;
+    height: 40vw;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .containerWrapper{
+    width: 44vw;
+    height: auto;
+    margin-bottom: 4vw;
+    border-radius: 15px;
+    transition: all .3s;
+  }
+  .showSandwich {
+    display: block;
+    font-size: 12px;
+    height: 50px;
+  }
+  .containerImage {
+  width: 40%; 
+}
+.containerInfo {
+  width: 60%;
+}
+.container-name{
+    font-size: calc(16px + .5vw);
+  }
+  .container-number{
+    font-size: calc(12px + .5vw);
+  }
+  .defaultElement{
+    margin-top: 10vw
+  }
+  .default_sandwiches{
+    width: 44vw;
+    margin-bottom: 4vw;
+}
+.step {  
+  display: flex;
+  width: 100%;
+  margin: 30px 0;
+  justify-content: space-between;
+}
+.command-buttons{
+  width: 48%;
+  height: 50px;
+  font-size: 14px;
+  margin: 0;
+}
+.command-buttons {
+  background-color: #0080ff !important;
+}
+#elements-place img {
+  /*height: 100px !important;*/
+}
+}
+#element-picture{
+  width: 28vw;
+  height: 18.6vw;
+  margin-left: 10px;
+  margin-right: 10px;
 }
   </style>
   <div style="position: relative; min-height: 100vh;"> 
@@ -278,8 +360,15 @@
       </div>
  
       <div id="elements-place"></div>
-     
-      <input type="button" id="back_step" onclick="back_step();" value="<%= translated[language]["one_step_back"] %>">
+
+      
+     <div class="step">
+       <input class="command-buttons" type="button" id="back_step" onclick="back_step();" value="<%= translated[language]["one_step_back"] %>">
+       <input class="command-buttons" id="order_sandwich" type="button"  onclick="order_sandwich();" value="<%= translated[language]["make"] %>">
+        <div class="order-for-later">
+         <input class="command-buttons" id="order_for_later" type="button"  onclick="order_sandwich();" value="<%= translated[language]["order_for_later"] %>">
+        </div>
+      </div>
 
 
   </div>
@@ -299,7 +388,8 @@ function add_element(id)
 {
   console.log(id);
   let element = document.createElement("img");
-  element.style.cssText = `width: 90%; margin-left: 10px; margin-right: 10px; height: 13vw;`
+  element.id = "element-picture"
+
   switch (id) {
     case "container-1":
       steps.push(1)
@@ -390,6 +480,14 @@ function sandwich_without_sauces_and_spices() {
   add_sandwich(newsteps);
 }
 
+function order_sandwich() {
+  ordered_steps = ""
+  for (let i = 0; i < steps.length; i++) {
+    ordered_steps += steps[i]
+  }
+  console.log(ordered_steps);
+  window.location.replace(`/ordersandwich/${ordered_steps}/now`);
+}
 
 
 
