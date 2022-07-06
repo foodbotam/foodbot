@@ -314,15 +314,29 @@ app.post("/changecontainer/:container/:newitem", (req, res) => {
 
 // Function for ordering sandwich
 app.get("/ordersandwich/:steps/:time", (req, res) => {
-	string_steps = req.params.steps
-	steps = []
-	for (let i = 0; i < string_steps.length; i++) {
-		steps[i] = string_steps.charCodeAt(i)
+	console.log();
+	if (req.session.loggedin)
+	{
+		string_steps = req.params.steps
+		steps = []
+		for (let i = 0; i < string_steps.length; i++) {
+			steps[i] = string_steps.charCodeAt(i)
+		}
+		if (req.params.time == "now"){
+			make_sandwich(steps,req.session.deviceid,req.session.password)
+		}
+		else{
+			setInterval(()=>{
+				console.log("makeeeeeeee");
+				make_sandwich(steps,req.session.deviceid,req.session.password)
+			}, req.params.time*60*1000)
+		}
+		console.log(req.params.time);
+		res.redirect("/devicecontrol")
 	}
-	if (req.params.time == "now"){
-		make_sandwich(steps,req.session.deviceid,req.session.password)
+	else {
+		res.redirect("/login")
 	}
-	res.redirect("/home")
 });
 
 // Function for opening admin page
