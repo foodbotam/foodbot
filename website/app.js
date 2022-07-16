@@ -43,6 +43,7 @@ function add_message(name, email, phone, message) {
 	let year = date_ob.getFullYear();
 	let full_date = year + "_" + month + "_" + date + "_" + hours + "_" + minutes + "_" + seconds + "_" + milliseconds
 	json_data[full_date] = {}
+	console.log(`Mail: ${email}`);
 	json_data[full_date]["surname"] = name
 	json_data[full_date]["email"] = email
 	json_data[full_date]["phone"] = phone
@@ -281,7 +282,7 @@ app.get("/contactus", (req, res) => {
 	res.render("contactus.ejs", { uorp: req.session.loggedin, language: language, translated: translated })
 });
 app.post("/contactus", (req, res) => {
-	add_message(req.body.name, req.body.emails, req.body.phone, req.body.message);
+	add_message(req.body.name, req.body.email, req.body.phone, req.body.message);
 	res.redirect("/home")
 });
 
@@ -342,7 +343,7 @@ app.get("/ordersandwich/:steps/:time", (req, res) => {
 // Function for opening admin page
 app.get("/admin", (req, res) => {
 	if (admin_loggedin) {
-		res.render("admin.ejs", { uorp: admin_loggedin, translated: translated, language: language, error: "noerror", messages: get_messages(true) })
+		res.render("admin.ejs", { uorp: admin_loggedin, translated: translated, language: language, error: "noerror", messages: get_messages(false) })
 	}
 	else {
 		res.render("adminlogin.ejs", { uorp: admin_loggedin, translated: translated, language: language, error: "noerror" })
@@ -352,11 +353,11 @@ app.get("/admin", (req, res) => {
 
 // Function for opening admin page
 app.post("/admin", (req, res) => {
-	if (req.body.newdevicename) {
+	console.log(`Problem is here ${req.body.newdevicename} ${req.body.newdevicepassword}`);
+	if (req.body.newdգevicename) {
 		make_json_file(req.body.newdevicename, req.body.newdevicepassword)
 		if (admin_loggedin) {
-			console.log(get_messages(true));
-			res.render("admin.ejs", { uorp: admin_loggedin, translated: translated, language: language, error: "success_device_add", messages: get_messages(true) })
+			res.render("admin.ejs", { uorp: admin_loggedin, translated: translated, language: language, error: "success_device_add", messages: get_messages(false) })
 		}
 		else {
 			res.render("adminlogin.ejs", { uorp: admin_loggedin, translated: translated, language: language, error: "noerror" })
